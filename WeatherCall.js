@@ -18,9 +18,14 @@ const buildUrl = (cityName, APIKEY) => {
 let findWeatherData = async function (completeUrl) {
   const response = await fetch(completeUrl)
   const weatherData = await response.json()
-  console.log(weatherData.name)
-  console.log(weatherData.main.temp)
+  // console.log(weatherData.name)
+  // console.log(weatherData.main.temp)
   return weatherData
+}
+
+const imperialConversion = (kTemp) => {
+  const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
+  return fahrenheit
 }
 
 console.log(buildUrl('Chicago', APIKEY))
