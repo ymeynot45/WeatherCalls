@@ -16,11 +16,14 @@ const buildUrl = (cityName, APIKEY) => {
 }
 
 let findWeatherData = async function (completeUrl) {
-  const response = await fetch(completeUrl)
+  try {const response = await fetch(completeUrl)
   const weatherData = await response.json()
   // console.log(weatherData.name)
   // console.log(weatherData.main.temp)
   return weatherData
+  } catch (error) {
+    alert(error)
+  }
 }
 
 const imperialConversion = (kTemp) => {
