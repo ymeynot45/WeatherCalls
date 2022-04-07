@@ -28,5 +28,10 @@ const imperialConversion = (kTemp) => {
   return fahrenheit
 }
 
+const celsiusConversion = (kTemp) => {
+  const celsius = (kTemp - 273.15)
+  return celsius
+}
+
 console.log(buildUrl('Chicago', APIKEY))
 console.log(findWeatherData(buildUrl(cityName, APIKEY)))
