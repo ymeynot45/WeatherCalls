@@ -39,7 +39,7 @@ const celsiusConversion = (kTemp) => {
 const locationForm = () => {
   frame = document.getElementById('userInput')
   let createform = document.createElement('form')
-  createform.setAttribute('id', 'locationForm')
+  createform.setAttribute('id', 'locationEntry')
   createform.setAttribute('action', '')
   createform.setAttribute('method', 'post')
   frame.appendChild(createform)
@@ -55,9 +55,9 @@ const locationForm = () => {
   createform.appendChild(linebreak)
 
   let cityImput = document.createElement('input')
-  cityImput.setAttribute('id', 'cityInput')
+  cityImput.setAttribute('id', 'cityInputBox')
   cityImput.setAttribute('type', 'text')
-  cityImput.setAttribute('name', "City")
+  cityImput.setAttribute('name', "city")
   createform.appendChild(cityImput)
 
   let submitCity = document.createElement('input')
@@ -67,10 +67,14 @@ const locationForm = () => {
   submitCity.setAttribute('name', 'citySubmit')
   createform.appendChild(submitCity)
 
-  locationForm.addEventListener ('submit', handleSubmit)
+  locationEntry.addEventListener ('submit', handleSubmit)
 }
 
-
+const handleSubmit = (e) => {
+  e.preventDefault()
+  const city = e.target[0].value
+  return city
+}
 
 document.body.addEventListener('load',locationForm())
 
