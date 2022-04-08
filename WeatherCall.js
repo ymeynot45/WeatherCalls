@@ -36,5 +36,43 @@ const celsiusConversion = (kTemp) => {
   return celsius
 }
 
-console.log(buildUrl('Chicago', APIKEY))
-console.log(findWeatherData(buildUrl(cityName, APIKEY)))
+const locationForm = () => {
+  frame = document.getElementById('userInput')
+  let createform = document.createElement('form')
+  createform.setAttribute('id', 'locationForm')
+  createform.setAttribute('action', '')
+  createform.setAttribute('method', 'post')
+  frame.appendChild(createform)
+
+  let heading = document.createElement('h5')
+  heading.interHTML = "City"
+  createform.append(heading)
+
+  let line = document.createElement('hr')
+  createform.appendChild(line)
+
+  let linebreak = document.createElement('br')
+  createform.appendChild(linebreak)
+
+  let cityImput = document.createElement('input')
+  cityImput.setAttribute('id', 'cityInput')
+  cityImput.setAttribute('type', 'text')
+  cityImput.setAttribute('name', "City")
+  createform.appendChild(cityImput)
+
+  let submitCity = document.createElement('input')
+  submitCity.setAttribute('id', 'citySubmitButton')
+  submitCity.setAttribute('type', 'submit')
+  submitCity.setAttribute('value', "Enter")
+  submitCity.setAttribute('name', 'citySubmit')
+  createform.appendChild(submitCity)
+
+  locationForm.addEventListener ('submit', handleSubmit)
+}
+
+
+
+document.body.addEventListener('load',locationForm())
+
+// console.log(buildUrl('Chicago', APIKEY))
+// console.log(findWeatherData(buildUrl(cityName, APIKEY)))
