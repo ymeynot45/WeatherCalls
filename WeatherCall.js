@@ -1,5 +1,5 @@
 const testCase = '"id": 4887398'
-const cityName = 'Chicago'
+// const cityName = 'Chicago'
 const APIKEY = '20f7632ffc2c022654e4093c6947b4f4'
 const insertCityUrl = (cityName, APIKEY) => {
   return `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${APIKEY}`
@@ -14,9 +14,9 @@ const buildUrl = (cityName, APIKEY) => {
 let findWeatherData = async function (completeUrl) {
   try {const response = await fetch(completeUrl)
   const weatherData = await response.json()
-  // console.log(weatherData.name)
-  // console.log(weatherData.main.temp)
-  return weatherData
+  console.log(weatherData.name) // works
+  console.log(weatherData.main.temp) // works
+  weatherData
   } catch (error) {
     alert(error)
   }
@@ -26,23 +26,48 @@ const clearForm = () => {
   document.getElementById('locationEntryForm').reset();
 };
 
-const updatepage = (weatherData) => {
+const updatePage = (weatherData) => {
   updateTemperature(weatherData)
   updateWind(weatherData)
-  updatePercipitation(weatherData)
+  updatePrecipitation(weatherData)
+  updateSunriseSunset(weatherData)
+}
+
+const updateTemperature = (weatherData) => {
+  const frame = document.getElementById('temperature')
+  // frame.innerHTML = weatherData.
+  console.log(weatherData) // undefined
+}
+
+const updateWind = (weatherData) => {
+  updateWindSpeed(weatherData)
+  updateWindDirection(weatherData)
+}
+
+const updateWindSpeed = (weatherData) => {
+  const frame = document.getElementById('windSpeed')
+}
+
+const updateWindDirection = (weatherData) => {
+  const frame = document.getElementById('windDirection')
+}
+
+const updatePrecipitation = (weatherData) => {
+  const frame = document.getElementById('percipitation')
+}
+
+const updateSunriseSunset = (weatherData) => {
   updateSunrise(weatherData)
   updateSunset(weatherData)
 }
 
-const updateTemperature = (weatherData) => {}
+const updateSunrise = (weatherData) => {
+  const frame = document.getElementById('sunrise')
+}
 
-const updateWind = (weatherData) => {}
-
-const updatePrecipitation = (weatherData) => {}
-
-const updateSunrise = (weatherData) => {}
-
-const updateSunset = (weatherData) => {}
+const updateSunset = (weatherData) => {
+  const frame = document.getElementById('sunset')
+}
 
 const imperialConversion = (kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
@@ -99,7 +124,8 @@ const handleSubmit = (e) => {
   const city = e.target[0].value
   // Every thing else goes here
   weatherData = makeWeatherCall(city, APIKEY)
-  updatepage(weatherData)
+  console.log(weatherData) // undefined
+  updatePage(weatherData)
 }
 
 document.body.addEventListener('load',locationForm())
