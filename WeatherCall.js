@@ -1,17 +1,13 @@
 const testCase = '"id": 4887398'
 const cityName = 'Chicago'
 const APIKEY = '20f7632ffc2c022654e4093c6947b4f4'
-const URL = (cityName, APIKEY) => {
+const insertCityUrl = (cityName, APIKEY) => {
   return `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${APIKEY}`
 }
-const display = document.getElementById('weatherDisplay')
-
-const weatherCall = (cityName, APIKEY) => {
-  completeUrl = buildUrl(cityName, APIKEY)
-}
+const DISPLAY = document.getElementById('weatherDisplay')
 
 const buildUrl = (cityName, APIKEY) => {
-  completeUrl = URL(cityName, APIKEY)
+  completeUrl = insertCityUrl(cityName, APIKEY)
   return completeUrl
 }
 
@@ -34,6 +30,11 @@ const imperialConversion = (kTemp) => {
 const celsiusConversion = (kTemp) => {
   const celsius = (kTemp - 273.15)
   return celsius
+}
+
+const makeWeatherCall = (city, APIKEY) => {
+  weatherData = findWeatherData(buildUrl(city, APIKEY))
+  console.log(weatherData)
 }
 
 const locationForm = () => {
@@ -73,7 +74,9 @@ const locationForm = () => {
 const handleSubmit = (e) => {
   e.preventDefault()
   const city = e.target[0].value
-  return city
+  // Every thing else goes here
+  makeWeatherCall(city, APIKEY)
+
 }
 
 document.body.addEventListener('load',locationForm())
