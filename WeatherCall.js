@@ -22,9 +22,27 @@ let findWeatherData = async function (completeUrl) {
   }
 }
 
-const clearForm = function(){
+const clearForm = () => {
   document.getElementById('locationEntryForm').reset();
 };
+
+const updatepage = (weatherData) => {
+  updateTemperature(weatherData)
+  updateWind(weatherData)
+  updatePercipitation(weatherData)
+  updateSunrise(weatherData)
+  updateSunset(weatherData)
+}
+
+const updateTemperature = (weatherData) => {}
+
+const updateWind = (weatherData) => {}
+
+const updatePrecipitation = (weatherData) => {}
+
+const updateSunrise = (weatherData) => {}
+
+const updateSunset = (weatherData) => {}
 
 const imperialConversion = (kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
@@ -39,7 +57,7 @@ const celsiusConversion = (kTemp) => {
 const makeWeatherCall = (city, APIKEY) => {
   weatherData = findWeatherData(buildUrl(city, APIKEY))
   clearForm()
-  console.log(weatherData)
+  return weatherData
 }
 
 const locationForm = () => {
@@ -80,8 +98,8 @@ const handleSubmit = (e) => {
   e.preventDefault()
   const city = e.target[0].value
   // Every thing else goes here
-  makeWeatherCall(city, APIKEY)
-
+  weatherData = makeWeatherCall(city, APIKEY)
+  updatepage(weatherData)
 }
 
 document.body.addEventListener('load',locationForm())
