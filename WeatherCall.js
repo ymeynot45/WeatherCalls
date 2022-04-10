@@ -22,6 +22,10 @@ let findWeatherData = async function (completeUrl) {
   }
 }
 
+const clearForm = function(){
+  document.getElementById('locationEntryForm').reset();
+};
+
 const imperialConversion = (kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
   return fahrenheit
@@ -34,13 +38,14 @@ const celsiusConversion = (kTemp) => {
 
 const makeWeatherCall = (city, APIKEY) => {
   weatherData = findWeatherData(buildUrl(city, APIKEY))
+  clearForm()
   console.log(weatherData)
 }
 
 const locationForm = () => {
   frame = document.getElementById('userInput')
   let createform = document.createElement('form')
-  createform.setAttribute('id', 'locationEntry')
+  createform.setAttribute('id', 'locationEntryForm')
   createform.setAttribute('action', '')
   createform.setAttribute('method', 'post')
   frame.appendChild(createform)
@@ -68,7 +73,7 @@ const locationForm = () => {
   submitCity.setAttribute('name', 'citySubmit')
   createform.appendChild(submitCity)
 
-  locationEntry.addEventListener ('submit', handleSubmit)
+  locationEntryForm.addEventListener ('submit', handleSubmit)
 }
 
 const handleSubmit = (e) => {
