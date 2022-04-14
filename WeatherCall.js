@@ -16,7 +16,7 @@ let findWeatherData = async function (completeUrl) {
   const weatherData = await response.json()
   console.log(weatherData.name) // works
   console.log(weatherData.main.temp) // works
-  weatherData
+  return weatherData
   } catch (error) {
     alert(error)
   }
@@ -36,7 +36,7 @@ const updatePage = (weatherData) => {
 const updateTemperature = (weatherData) => {
   const frame = document.getElementById('temperature')
   // frame.innerHTML = weatherData.
-  console.log(weatherData) // undefined
+  console.log(weatherData.main.temp) // undefined
 }
 
 const updateWind = (weatherData) => {
@@ -69,18 +69,34 @@ const updateSunset = (weatherData) => {
   const frame = document.getElementById('sunset')
 }
 
-const imperialConversion = (kTemp) => {
+const tempConversionSet = (unit) => {
+  display = document.getElementById('temperatureUnitDisplay')
+  if(unit === 'fahrenheit') {
+    display.interHTML = "F"
+    imperialConversion()
+  }else if (unit === 'celsius'){
+    display.interHTML = "C"
+  }
+}
+
+const intialConversion = (kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
   return fahrenheit
 }
 
-const celsiusConversion = (kTemp) => {
-  const celsius = (kTemp - 273.15)
+const imperialConversion = (cTemp) => {
+  const fahrenheit = ((cTemp * 9/5) + 32)
+  return fahrenheit
+}
+
+const celsiusConversion = (fTemp) => {
+  const celsius = ((fTemp - 32) * 5/9)
+
   return celsius
 }
 
 const makeWeatherCall = (city, APIKEY) => {
-  weatherData = findWeatherData(buildUrl(city, APIKEY))
+  weatherData = await findWeatherData(buildUrl(city, APIKEY))
   clearForm()
   return weatherData
 }
@@ -123,8 +139,8 @@ const handleSubmit = (e) => {
   e.preventDefault()
   const city = e.target[0].value
   // Every thing else goes here
-  weatherData = makeWeatherCall(city, APIKEY)
-  console.log(weatherData) // undefined
+  weatherData = await makeWeatherCall(city, APIKEY)
+  console.log(weatherData.name) // undefined
   updatePage(weatherData)
 }
 
