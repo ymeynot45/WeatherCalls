@@ -36,8 +36,8 @@ const updatePage = (weatherData) => {
 
 const updateTemperature = (weatherData) => {
   const frame = document.getElementById('temperature')
-  // frame.innerHTML = weatherData
-  console.log(weatherData.main.temp) // undefined
+  frame.createTextNode = weatherData.main.temp
+  // console.log(weatherData.main.temp) // undefined
 }
 
 const updateWind = (weatherData) => {
@@ -116,20 +116,11 @@ const locationForm = () => {
   createform.setAttribute('method', 'post')
   frame.appendChild(createform)
 
-  let heading = document.createElement('h5')
-  heading.interHTML = "City"
-  createform.appendChild(heading)
-
-  let line = document.createElement('hr')
-  createform.appendChild(line)
-
-  let linebreak = document.createElement('br')
-  createform.appendChild(linebreak)
-
   let cityImput = document.createElement('input')
   cityImput.setAttribute('id', 'cityInputBox')
   cityImput.setAttribute('type', 'text')
-  cityImput.setAttribute('name', "city")
+  cityImput.setAttribute('name', "Input City")
+  cityImput.setAttribute('placeholder', "City")
   createform.appendChild(cityImput)
 
   let submitCity = document.createElement('input')
@@ -147,8 +138,6 @@ const handleSubmit = (e) => {
   const city = e.target[0].value
   // Every thing else goes here
   const weatherData = makeWeatherCall(city, APIKEY)
-  console.log(weatherData.name) // undefined
-  updatePage(weatherData)
 }
 
 window.addEventListener('load',locationForm)
