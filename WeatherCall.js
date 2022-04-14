@@ -88,18 +88,23 @@ const celsiusConversion = (fTemp) => {
   return celsius
 }
 
-const tempConversionSet = (unit) => {
+const conversionListener = () => {
+  button = document.getElementById('conversionButton')
+  button.addEventListener('onclick', tempConversionSet)
+}
+
+const tempConversionSet = () => {
   const display = document.getElementById('temperatureUnitDisplay')
-  const currentTemp = document.getElementById('temperature').interHTML
-  if(unit === 'fahrenheit') {
-    display.interHTML = "F"
+  const currentTemp = document.getElementById('temperature').innerHTML
+  if(display === 'C') {
+    display.innerHTML = "F"
     currentTemp = imperialConversion(currentTemp)
-    document.getElementById('temperature').interHTML = currentTemp
-  }else if (unit === 'celsius'){
-    display.interHTML = "C"
-    currentTemp = document.getElementById('temperature').interHTML
+    document.getElementById('temperature').innerHTML = currentTemp
+  }else if (display.innerHTML === 'F'){
+    display.innerHTML = "C"
+    currentTemp = document.getElementById('temperature').innerHTML
     currentTemp = celsiusConversion(currentTemp)
-    document.getElementById('temperature').interHTML = currentTemp
+    document.getElementById('temperature').innerHTML = currentTemp
   }
 }
 
@@ -143,9 +148,10 @@ const handleSubmit = (e) => {
 
 const addElements = () => {
   locationForm()
+  conversionListener()
 }
 
-window.addEventListener('load',addElements)
+window.addEventListener('load', addElements)
 
 // console.log(buildUrl('Chicago', APIKEY))
 // console.log(findWeatherData(buildUrl(cityName, APIKEY)))
