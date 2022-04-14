@@ -12,11 +12,12 @@ const buildUrl = (cityName, APIKEY) => {
 }
 
 let findWeatherData = async function (completeUrl) {
-  try {const response = await fetch(completeUrl)
-  const weatherData = await response.json()
-  console.log(weatherData.name) // works
-  console.log(weatherData.main.temp) // works
-  return weatherData
+  try {
+    const response = await fetch(completeUrl)
+    const weatherData = await response.json()
+    console.log(weatherData.name) // works
+    console.log(weatherData.main.temp) // works
+    updateTemperature(weatherData)
   } catch (error) {
     alert(error)
   }
@@ -35,7 +36,7 @@ const updatePage = (weatherData) => {
 
 const updateTemperature = (weatherData) => {
   const frame = document.getElementById('temperature')
-  // frame.innerHTML = weatherData.
+  // frame.innerHTML = weatherData
   console.log(weatherData.main.temp) // undefined
 }
 
@@ -69,18 +70,10 @@ const updateSunset = (weatherData) => {
   const frame = document.getElementById('sunset')
 }
 
-const tempConversionSet = (unit) => {
-  display = document.getElementById('temperatureUnitDisplay')
-  if(unit === 'fahrenheit') {
-    display.interHTML = "F"
-    imperialConversion()
-  }else if (unit === 'celsius'){
-    display.interHTML = "C"
-  }
-}
-
 const intialConversion = (kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
+  const display = document.getElementById('temperatureUnitDisplay')
+  display.interHTML = "F"
   return fahrenheit
 }
 
@@ -91,12 +84,26 @@ const imperialConversion = (cTemp) => {
 
 const celsiusConversion = (fTemp) => {
   const celsius = ((fTemp - 32) * 5/9)
-
   return celsius
 }
 
-const makeWeatherCall = (city, APIKEY) => {
-  weatherData = await findWeatherData(buildUrl(city, APIKEY))
+const tempConversionSet = (unit) => {
+  const display = document.getElementById('temperatureUnitDisplay')
+  const currentTemp = document.getElementById('temperature').interHTML
+  if(unit === 'fahrenheit') {
+    display.interHTML = "F"
+    currentTemp = imperialConversion(currentTemp)
+    document.getElementById('temperature').interHTML = currentTemp
+  }else if (unit === 'celsius'){
+    display.interHTML = "C"
+    currentTemp = document.getElementById('temperature').interHTML
+    currentTemp = celsiusConversion(currentTemp)
+    document.getElementById('temperature').interHTML = currentTemp
+  }
+}
+
+const makeWeatherCall = async function(city, APIKEY){
+  const weatherData = await findWeatherData(buildUrl(city, APIKEY))
   clearForm()
   return weatherData
 }
@@ -111,7 +118,7 @@ const locationForm = () => {
 
   let heading = document.createElement('h5')
   heading.interHTML = "City"
-  createform.append(heading)
+  createform.appendChild(heading)
 
   let line = document.createElement('hr')
   createform.appendChild(line)
@@ -139,12 +146,12 @@ const handleSubmit = (e) => {
   e.preventDefault()
   const city = e.target[0].value
   // Every thing else goes here
-  weatherData = await makeWeatherCall(city, APIKEY)
+  const weatherData = makeWeatherCall(city, APIKEY)
   console.log(weatherData.name) // undefined
   updatePage(weatherData)
 }
 
-document.body.addEventListener('load',locationForm())
+window.addEventListener('load',locationForm)
 
 // console.log(buildUrl('Chicago', APIKEY))
 // console.log(findWeatherData(buildUrl(cityName, APIKEY)))
