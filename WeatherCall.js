@@ -15,9 +15,9 @@ let findWeatherData = async function (completeUrl) {
   try {
     const response = await fetch(completeUrl)
     const weatherData = await response.json()
-    console.log(weatherData.name) // works
-    console.log(weatherData.main.temp) // works
-    updateTemperature(weatherData)
+    console.log("After the api call ", weatherData.name) // works
+    console.log("After the api call ", weatherData.main.temp) // works
+    updatePage(weatherData)
   } catch (error) {
     alert(error)
   }
@@ -28,16 +28,15 @@ const clearForm = () => {
 };
 
 const updatePage = (weatherData) => {
-  updateTemperature(weatherData)
+  updateTemperature(weatherData.main.temp)
   updateWind(weatherData)
   updatePrecipitation(weatherData)
   updateSunriseSunset(weatherData)
 }
 
-const updateTemperature = (weatherData) => {
+const updateTemperature = (temp) => {
   const frame = document.getElementById('temperature')
-  frame.createTextNode = weatherData.main.temp
-  // console.log(weatherData.main.temp) // undefined
+  frame.innerHTML = intialConversion(temp)
 }
 
 const updateWind = (weatherData) => {
@@ -73,8 +72,10 @@ const updateSunset = (weatherData) => {
 const intialConversion = (kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
   const display = document.getElementById('temperatureUnitDisplay')
-  display.interHTML = "F"
-  return fahrenheit
+  console.log(display)
+  display.innerHTML = "F"
+  console.log(display)
+  return fahrenheit.toFixed(1)
 }
 
 const imperialConversion = (cTemp) => {
