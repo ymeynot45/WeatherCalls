@@ -141,7 +141,11 @@ const handleSubmit = (e) => {
   const weatherData = makeWeatherCall(city, APIKEY)
 }
 
-window.addEventListener('load',locationForm)
+const addElements = () => {
+  locationForm()
+}
+
+window.addEventListener('load',addElements)
 
 // console.log(buildUrl('Chicago', APIKEY))
 // console.log(findWeatherData(buildUrl(cityName, APIKEY)))
