@@ -42,7 +42,7 @@ const updateTemperature = (temp) => {
 
 const updateWind = (weatherData) => {
   updateWindSpeed(weatherData.speed)
-  // updateWindDirection(weatherData.deg)
+  updateWindDirection(weatherData.deg)
 }
 
 const updateWindSpeed = (windSpeed) => {
@@ -50,25 +50,42 @@ const updateWindSpeed = (windSpeed) => {
   frame.innerHTML = windSpeed
 }
 
-const updateWindDirection = (windDirection) => {
+const updateWindDirection = (windDegrees) => {
   const frame = document.getElementById('windDirection')
-//   N = North (349 - 011 degrees)
-// NNE = North-Northeast (012-033 degrees)
-// NE = Northeast (034-056 degrees)
-// ENE = East-Northeast (057-078 degrees)
-// E = East (079-101 degrees)
-// ESE = East-Southeast (102-123 degrees)
-// SE = Southeast (124-146 degrees)
-// SSE = South-Southeast (147-168 degrees)
-// S = South (169-191 degrees)
-// SSW = South-Southwest (192-213 degrees)
-// SW = Southwest (214-236 degrees)
-// WSW = West-Southwest (237-258 degrees)
-// W = West (259-281 degrees)
-// WNW = West-Northwest (282-303 degrees)
-// NW = Northwest (304-326 degrees)
-// NNW = North-Northwest (327-348 degrees) 
-  frame.innerHTML = windDirection
+  let direction = ''
+  if (windDegrees > 348 || windDegrees < 12){
+   direction = "North"
+  }else if (windDegrees > 11 && windDegrees < 34){
+    direction = "North-Northeast"
+  }else if (windDegrees > 33 && windDegrees < 57){
+    direction = "Northeast"
+  }else if (windDegrees > 56 && windDegrees < 79){
+    direction = "East-Northeast"
+  }else if (windDegrees > 78 && windDegrees < 102){
+    direction = "East"
+  }else if (windDegrees > 101 && windDegrees < 124){
+    direction = "East-Southeast"
+  }else if (windDegrees > 123 && windDegrees < 147){
+    direction = "Southeast"
+  }else if (windDegrees > 146 && windDegrees < 169){
+    direction = "South-Southeast"
+  }else if (windDegrees > 168 && windDegrees < 192){
+    direction = "South"
+  }else if (windDegrees > 191 && windDegrees < 214){
+    direction = "South-Southwest"
+  }else if (windDegrees > 213 && windDegrees < 237){
+    direction = "Southwest"
+  }else if (windDegrees > 236 && windDegrees < 259){
+    direction = "West-Southwest"
+  }else if (windDegrees > 258 && windDegrees < 282){
+    direction = "West"
+  }else if (windDegrees > 281 && windDegrees < 304){
+    direction = "West-Northwest"
+  }else if (windDegrees > 303 && windDegrees < 327){
+    direction = "Northwest"
+  }else if (windDegrees > 326 && windDegrees < 349){
+    direction = "North-Northwest"}
+  frame.innerHTML = direction
 }
 
 const updatePrecipitation = (weatherData) => {
