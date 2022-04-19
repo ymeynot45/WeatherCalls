@@ -203,7 +203,7 @@ const locationForm = () => {
   let submitCity = document.createElement('input')
   submitCity.setAttribute('id', 'citySubmitButton')
   submitCity.setAttribute('type', 'submit')
-  submitCity.setAttribute('value', "Enter")
+  submitCity.setAttribute('value', "And now your local weather!")
   submitCity.setAttribute('name', 'citySubmit')
   createform.appendChild(submitCity)
 
