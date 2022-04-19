@@ -72,39 +72,36 @@ const updateSunset = (weatherData) => {
 const intialConversion = (kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
   const display = document.getElementById('temperatureUnitDisplay')
-  console.log(display)
   display.innerHTML = "F"
-  console.log(display)
   return fahrenheit.toFixed(1)
 }
 
-const imperialConversion = (cTemp) => {
+const toImperialConversion = (cTemp) => {
   const fahrenheit = ((cTemp * 9/5) + 32)
   return fahrenheit
 }
 
-const celsiusConversion = (fTemp) => {
+const toCelsiusConversion = (fTemp) => {
   const celsius = ((fTemp - 32) * 5/9)
   return celsius
 }
 
 const conversionListener = () => {
   button = document.getElementById('conversionButton')
-  button.addEventListener('onclick', tempConversionSet)
+  button.addEventListener('click', tempConversionSet)
 }
 
 const tempConversionSet = () => {
-  const display = document.getElementById('temperatureUnitDisplay')
-  const currentTemp = document.getElementById('temperature').innerHTML
-  if(display === 'C') {
+  let display = document.getElementById('temperatureUnitDisplay')
+  let currentTemp = document.getElementById('temperature').innerHTML
+  if(display.innerHTML === "C") {
     display.innerHTML = "F"
-    currentTemp = imperialConversion(currentTemp)
-    document.getElementById('temperature').innerHTML = currentTemp
-  }else if (display.innerHTML === 'F'){
+    currentTemp = toImperialConversion(currentTemp)
+    document.getElementById('temperature').innerHTML = currentTemp.toFixed(1)
+  }else if (display.innerHTML === "F"){
     display.innerHTML = "C"
-    currentTemp = document.getElementById('temperature').innerHTML
-    currentTemp = celsiusConversion(currentTemp)
-    document.getElementById('temperature').innerHTML = currentTemp
+    currentTemp = toCelsiusConversion(currentTemp)
+    document.getElementById('temperature').innerHTML = currentTemp.toFixed(1)
   }
 }
 
