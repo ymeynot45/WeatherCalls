@@ -28,7 +28,7 @@ const clearForm = () => {
 };
 
 const updatePage = (weatherData) => {
-  console.log("WeatherData  ", weatherData)
+  console.log("WeatherData  ", weatherData) // Delete when done
   updateTemperature(weatherData.main.temp)
   updateWind(weatherData.wind)
   updatePrecipitation(weatherData)
@@ -66,10 +66,19 @@ const updateSunriseSunset = (weatherData) => {
 
 const updateSunrise = (weatherData) => {
   const frame = document.getElementById('sunrise')
+  frame.innerHTML = convertTime(weatherData.sunrise)
 }
 
 const updateSunset = (weatherData) => {
   const frame = document.getElementById('sunset')
+  frame.innerHTML = convertTime(weatherData.sunset)
+}
+
+const convertTime = (rawTime) => {
+  const rawDate = new Date(rawTime * 1000)
+  const wholeDate = rawDate.toString()
+  time = wholeDate.slice(-41, -36)
+  return time
 }
 
 const intialConversion = (kTemp) => {
