@@ -47,7 +47,7 @@ const updateWind = (weatherData) => {
 
 const updateWindSpeed = (weatherData) => {
   const frame = document.getElementById('windSpeed')
-  frame.innerHTML = weatherData + " MPH"
+  frame.innerHTML = weatherData
 }
 
 const updateWindDirection = (weatherData) => {
@@ -88,32 +88,61 @@ const intialConversion = (kTemp) => {
   return fahrenheit.toFixed(1)
 }
 
-const toImperialConversion = (cTemp) => {
-  const fahrenheit = ((cTemp * 9/5) + 32)
+const toImperialTempConversion = (mTemp) => {
+  const fahrenheit = ((mTemp * 9/5) + 32)
   return fahrenheit
 }
 
-const toCelsiusConversion = (fTemp) => {
-  const celsius = ((fTemp - 32) * 5/9)
+const toMetricTempConversion = (iTemp) => {
+  const celsius = ((iTemp - 32) * 5/9)
   return celsius
+}
+
+const toImperialWindConversion = (mWind) => {
+  return mWind * 2.237
+}
+
+const toMetricWindConversion = (iWind) => {
+  return iWind / 2.237
 }
 
 const conversionListener = () => {
   button = document.getElementById('conversionButton')
-  button.addEventListener('click', tempConversionSet)
+  button.addEventListener('click', converstionHandler)
 }
 
-const tempConversionSet = () => {
-  let display = document.getElementById('temperatureUnitDisplay')
+const converstionHandler = () => {
+  const currentSystem = document.getElementById('temperatureUnitDisplay')
+    unitConversionSet(currentSystem)
+ 
+}
+
+const unitConversionSet = (system) => {
   let currentTemp = document.getElementById('temperature').innerHTML
-  if(display.innerHTML === "C") {
-    display.innerHTML = "F"
-    currentTemp = toImperialConversion(currentTemp)
+  if(system.innerHTML === "C") {
+    windConversionSet(system.innerHTML)
+    system.innerHTML = "F"
+    currentTemp = toImperialTempConversion(currentTemp)
     document.getElementById('temperature').innerHTML = currentTemp.toFixed(1)
-  }else if (display.innerHTML === "F"){
-    display.innerHTML = "C"
-    currentTemp = toCelsiusConversion(currentTemp)
+  }else if (system.innerHTML === "F"){
+    windConversionSet(system.innerHTML)
+    system.innerHTML = "C"
+    currentTemp = toMetricTempConversion(currentTemp)
     document.getElementById('temperature').innerHTML = currentTemp.toFixed(1)
+  }
+}
+
+const windConversionSet = (system) => {
+  let display = document.getElementById('windSpeedUnitDisplay')
+  let currentWind = document.getElementById('windSpeed').innerHTML
+  if(system === "C") {
+    imperialWind = toImperialWindConversion(currentWind)
+    currentWind.innerHTML = imperialWind
+    display.innerHTML = "Mile per hour"
+  }else if (system === "F"){
+    metricWind = toMetricWindConversion(currentWind)
+    currentWind.innerHTML = metricWind
+    display.innerHTML = "Meters per Second"
   }
 }
 
