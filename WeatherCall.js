@@ -28,10 +28,11 @@ const clearForm = () => {
 };
 
 const updatePage = (weatherData) => {
+  console.log("WeatherData  ", weatherData)
   updateTemperature(weatherData.main.temp)
-  updateWind(weatherData)
+  updateWind(weatherData.wind)
   updatePrecipitation(weatherData)
-  updateSunriseSunset(weatherData)
+  updateSunriseSunset(weatherData.sys)
 }
 
 const updateTemperature = (temp) => {
@@ -40,16 +41,18 @@ const updateTemperature = (temp) => {
 }
 
 const updateWind = (weatherData) => {
-  updateWindSpeed(weatherData)
-  updateWindDirection(weatherData)
+  updateWindSpeed(weatherData.speed)
+  updateWindDirection(weatherData.deg)
 }
 
 const updateWindSpeed = (weatherData) => {
   const frame = document.getElementById('windSpeed')
+  frame.innerHTML = weatherData + " MPH"
 }
 
 const updateWindDirection = (weatherData) => {
   const frame = document.getElementById('windDirection')
+  frame.innerHTML = weatherData
 }
 
 const updatePrecipitation = (weatherData) => {
