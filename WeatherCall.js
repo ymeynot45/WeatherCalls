@@ -42,17 +42,33 @@ const updateTemperature = (temp) => {
 
 const updateWind = (weatherData) => {
   updateWindSpeed(weatherData.speed)
-  updateWindDirection(weatherData.deg)
+  // updateWindDirection(weatherData.deg)
 }
 
-const updateWindSpeed = (weatherData) => {
+const updateWindSpeed = (windSpeed) => {
   const frame = document.getElementById('windSpeed')
-  frame.innerHTML = weatherData
+  frame.innerHTML = windSpeed
 }
 
-const updateWindDirection = (weatherData) => {
+const updateWindDirection = (windDirection) => {
   const frame = document.getElementById('windDirection')
-  frame.innerHTML = weatherData
+//   N = North (349 - 011 degrees)
+// NNE = North-Northeast (012-033 degrees)
+// NE = Northeast (034-056 degrees)
+// ENE = East-Northeast (057-078 degrees)
+// E = East (079-101 degrees)
+// ESE = East-Southeast (102-123 degrees)
+// SE = Southeast (124-146 degrees)
+// SSE = South-Southeast (147-168 degrees)
+// S = South (169-191 degrees)
+// SSW = South-Southwest (192-213 degrees)
+// SW = Southwest (214-236 degrees)
+// WSW = West-Southwest (237-258 degrees)
+// W = West (259-281 degrees)
+// WNW = West-Northwest (282-303 degrees)
+// NW = Northwest (304-326 degrees)
+// NNW = North-Northwest (327-348 degrees) 
+  frame.innerHTML = windDirection
 }
 
 const updatePrecipitation = (weatherData) => {
@@ -99,11 +115,11 @@ const toMetricTempConversion = (iTemp) => {
 }
 
 const toImperialWindConversion = (mWind) => {
-  return mWind * 2.237
+  return (mWind * 2.237).toFixed(2)
 }
 
 const toMetricWindConversion = (iWind) => {
-  return iWind / 2.237
+  return (iWind / 2.237).toFixed(2)
 }
 
 const conversionListener = () => {
@@ -134,13 +150,13 @@ const unitConversionSet = (system) => {
 
 const windConversionSet = (system) => {
   let display = document.getElementById('windSpeedUnitDisplay')
-  let currentWind = document.getElementById('windSpeed').innerHTML
+  let currentWind = document.getElementById('windSpeed')
   if(system === "C") {
-    imperialWind = toImperialWindConversion(currentWind)
+    imperialWind = toImperialWindConversion(currentWind.innerHTML)
     currentWind.innerHTML = imperialWind
     display.innerHTML = "Mile per hour"
   }else if (system === "F"){
-    metricWind = toMetricWindConversion(currentWind)
+    metricWind = toMetricWindConversion(currentWind.innerHTML)
     currentWind.innerHTML = metricWind
     display.innerHTML = "Meters per Second"
   }
