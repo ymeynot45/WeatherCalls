@@ -1,7 +1,14 @@
-#userInput {
+#weather_display {
 
 }
 
-#cityInput {
+#weather_display > div {
+}
+
+#user_input {
+
+}
+
+#city_input {
 
 }
