@@ -2,21 +2,49 @@ const testCase = '"id": 4887398'
 // const cityName = 'Chicago'
 const APIKEY = '20f7632ffc2c022654e4093c6947b4f4'
 const insertCityUrl = (cityName, APIKEY) => {
-  return `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${APIKEY}`
+  return `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${APIKEY}`
+}
+const insertLatLonUrl = (lat, lon, APIKEY) => {
+  return `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${APIKEY}`
 }
 const DISPLAY = document.getElementById('weatherDisplay')
 
-const buildUrl = (cityName, APIKEY) => {
-  completeUrl = insertCityUrl(cityName, APIKEY)
-  return completeUrl
+const makeAPICall = async function(cityName, APIKEY){
+  const completeCityUrl = buildCityLocationUrl(cityName, APIKEY)
+  const locationData = await findLocationData(completeCityUrl)
+  console.log("location data when building the weather URL ", locationData)
+  const completeWeatherUrl = await buildWeatherUrl(locationData[0].lat , locationData[0].lon , APIKEY)
+  const weatherData = await findWeatherData(completeWeatherUrl)
+  clearForm()
+  return weatherData
 }
 
-let findWeatherData = async function (completeUrl) {
+const buildCityLocationUrl = (cityName, APIKEY) => {
+   const completeLocationUrl = insertCityUrl(cityName, APIKEY)
+  return completeLocationUrl
+}
+
+const findLocationData = async function (completeCityUrl) {
   try {
-    const response = await fetch(completeUrl)
+    const response = await fetch(completeCityUrl)
+    const locationData = await response.json()
+    console.log("location data when after call ", locationData)
+    return locationData
+  } catch (error) {
+    alert(error)
+  }
+}
+
+const buildWeatherUrl = (lat, lon, APIKEY) => {
+  completeWeatherUrl = insertLatLonUrl(lat, lon, APIKEY)
+  return completeWeatherUrl
+}
+
+
+const findWeatherData = async function (completeWeatherUrl) {
+  try {
+    const response = await fetch(completeWeatherUrl)
     const weatherData = await response.json()
-    console.log("After the api call ", weatherData.name) // works
-    console.log("After the api call ", weatherData.main.temp) // works
     updatePage(weatherData)
   } catch (error) {
     alert(error)
@@ -29,10 +57,10 @@ const clearForm = () => {
 
 const updatePage = (weatherData) => {
   console.log("WeatherData  ", weatherData) // Delete when done
-  updateTemperature(weatherData.main.temp)
-  updateWind(weatherData.wind)
-  updatePrecipitation(weatherData)
-  updateSunriseSunset(weatherData.sys)
+  // updateTemperature(weatherData.main.temp)
+  // updateWind(weatherData.wind)
+  // updatePrecipitation(weatherData)
+  // updateSunriseSunset(weatherData.sys)
 }
 
 const updateTemperature = (temp) => {
@@ -184,11 +212,6 @@ const windConversionSet = (system) => {
   }
 }
 
-const makeWeatherCall = async function(city, APIKEY){
-  const weatherData = await findWeatherData(buildUrl(city, APIKEY))
-  clearForm()
-  return weatherData
-}
 
 const locationForm = () => {
   frame = document.getElementById('userInput')
@@ -219,7 +242,7 @@ const handleSubmit = (e) => {
   e.preventDefault()
   const city = e.target[0].value
   // Every thing else goes here
-  const weatherData = makeWeatherCall(city, APIKEY)
+  const weatherData = makeAPICall(city, APIKEY)
 }
 
 const addElements = () => {
