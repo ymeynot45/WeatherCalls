@@ -1,34 +1,26 @@
-const testCase = '"id": 4887398'
-// const cityName = 'Chicago'
-const APIKEY = '20f7632ffc2c022654e4093c6947b4f4'
-const insertCityUrl = (cityName, APIKEY) => {
-  return `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${APIKEY}`
+const APIKEY = '7e27e0dc168db6f6048cc43a08a5543f'
+const buildCityLocationUrl = (cityName, stateCode, country, APIKEY) => {
+  return `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${country}&limit=1&appid=${APIKEY}`
 }
 const insertLatLonUrl = (lat, lon, APIKEY) => {
   return `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${APIKEY}`
 }
-const DISPLAY = document.getElementById('weatherDisplay')
+const DISPLAY = document.getElementById('weather_display')
 
-const makeAPICall = async function(cityName, APIKEY){
-  const completeCityUrl = buildCityLocationUrl(cityName, APIKEY)
+const makeAPICall = async function(city, stateCode, country, APIKEY){
+  const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
+  console.log("location url", completeCityUrl)
   const locationData = await findLocationData(completeCityUrl)
   console.log("location data when building the weather URL ", locationData)
-  const completeWeatherUrl = await buildWeatherUrl(locationData[0].lat , locationData[0].lon , APIKEY)
-  const weatherData = await findWeatherData(completeWeatherUrl)
+  const weatherData = await findWeatherData(insertLatLonUrl(locationData[0].lat , locationData[0].lon , APIKEY)) //Currently hard coded to work with only the first city from the api call.
   clearForm()
-  return weatherData
-}
-
-const buildCityLocationUrl = (cityName, APIKEY) => {
-   const completeLocationUrl = insertCityUrl(cityName, APIKEY)
-  return completeLocationUrl
 }
 
 const findLocationData = async function (completeCityUrl) {
   try {
     const response = await fetch(completeCityUrl)
     const locationData = await response.json()
-    console.log("location data when after call ", locationData)
+    console.log("location data after json call ", locationData)
     return locationData
   } catch (error) {
     alert(error)
@@ -52,11 +44,11 @@ const findWeatherData = async function (completeWeatherUrl) {
 }
 
 const clearForm = () => {
-  document.getElementById('locationEntryForm').reset();
+  document.getElementById('location_entry_form').reset();
 };
 
 const updatePage = (weatherData) => {
-  console.log("WeatherData  ", weatherData) // Delete when done
+  console.log("weather data  ", weatherData) // Delete when done
   // updateTemperature(weatherData.main.temp)
   // updateWind(weatherData.wind)
   // updatePrecipitation(weatherData)
@@ -74,12 +66,12 @@ const updateWind = (weatherData) => {
 }
 
 const updateWindSpeed = (windSpeed) => {
-  const frame = document.getElementById('windSpeed')
+  const frame = document.getElementById('wind_speed')
   frame.innerHTML = windSpeed
 }
 
 const updateWindDirection = (windDegrees) => {
-  const frame = document.getElementById('windDirection')
+  const frame = document.getElementById('wind_direction')
   let direction = ''
   if (windDegrees > 348 || windDegrees < 12){
    direction = "North"
@@ -149,7 +141,7 @@ const convertTime = (rawTime) => {
 
 const intialConversion = (kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
-  const display = document.getElementById('temperatureUnitDisplay')
+  const display = document.getElementById('temperature_unit_display')
   display.innerHTML = "F"
   return fahrenheit.toFixed(1)
 }
@@ -173,12 +165,12 @@ const toMetricWindConversion = (iWind) => {
 }
 
 const conversionListener = () => {
-  button = document.getElementById('conversionButton')
+  button = document.getElementById('conversion_button')
   button.addEventListener('click', converstionHandler)
 }
 
 const converstionHandler = () => {
-  const currentSystem = document.getElementById('temperatureUnitDisplay')
+  const currentSystem = document.getElementById('temperature_unit_display')
     unitConversionSet(currentSystem)
  
 }
@@ -199,8 +191,8 @@ const unitConversionSet = (system) => {
 }
 
 const windConversionSet = (system) => {
-  let display = document.getElementById('windSpeedUnitDisplay')
-  let currentWind = document.getElementById('windSpeed')
+  let display = document.getElementById('wind_speed_unit_display')
+  let currentWind = document.getElementById('wind_speed')
   if(system === "C") {
     imperialWind = toImperialWindConversion(currentWind.innerHTML)
     currentWind.innerHTML = imperialWind
@@ -214,35 +206,51 @@ const windConversionSet = (system) => {
 
 
 const locationForm = () => {
-  frame = document.getElementById('userInput')
+  frame = document.getElementById('user_input')
   let createform = document.createElement('form')
-  createform.setAttribute('id', 'locationEntryForm')
+  createform.setAttribute('id', 'location_entry_form')
   createform.setAttribute('action', '')
   createform.setAttribute('method', 'post')
   frame.appendChild(createform)
 
   let cityImput = document.createElement('input')
-  cityImput.setAttribute('id', 'cityInputBox')
+  cityImput.setAttribute('id', 'city_input_box')
   cityImput.setAttribute('type', 'text')
   cityImput.setAttribute('name', "Input City")
   cityImput.setAttribute('placeholder', "City")
   createform.appendChild(cityImput)
 
-  let submitCity = document.createElement('input')
-  submitCity.setAttribute('id', 'citySubmitButton')
-  submitCity.setAttribute('type', 'submit')
-  submitCity.setAttribute('value', "And now your local weather!")
-  submitCity.setAttribute('name', 'citySubmit')
-  createform.appendChild(submitCity)
+  let stateCodeImput = document.createElement('input')
+  stateCodeImput.setAttribute('id', 'state_code_input_box')
+  stateCodeImput.setAttribute('type', 'text')
+  stateCodeImput.setAttribute('name', "Input State")
+  stateCodeImput.setAttribute('placeholder', "State")
+  createform.appendChild(stateCodeImput)
 
-  locationEntryForm.addEventListener ('submit', handleSubmit)
+  let countryImput = document.createElement('input')
+  countryImput.setAttribute('id', 'country_input_box')
+  countryImput.setAttribute('type', 'text')
+  countryImput.setAttribute('name', "Input Country")
+  countryImput.setAttribute('placeholder', "Country")
+  createform.appendChild(countryImput)
+
+  const submitLocation = document.createElement('input')
+  submitLocation.setAttribute('id', 'location_submit_button')
+  submitLocation.setAttribute('type', 'submit')
+  submitLocation.setAttribute('value', "And now your local weather!")
+  submitLocation.setAttribute('name', 'location Submit')
+  createform.appendChild(submitLocation)
+
+  location_entry_form.addEventListener ('submit', handleSubmit)
 }
 
 const handleSubmit = (e) => {
   e.preventDefault()
   const city = e.target[0].value
+  const stateCode = e.target[1].value
+  const country = e.target[2].value
   // Every thing else goes here
-  const weatherData = makeAPICall(city, APIKEY)
+  makeAPICall(city, stateCode, country, APIKEY)
 }
 
 const addElements = () => {
