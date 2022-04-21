@@ -89,7 +89,12 @@ const updateWindDirection = (windDegrees) => {
 }
 
 const updatePrecipitation = (weatherData) => {
-  const frame = document.getElementById('percipitation')
+  if (weatherData.rain !== undefined) {
+    const frame = document.getElementById('percipitation')
+    const precipitation = weatherData.rain['1h'] //   -- not yet actionable until I pass a check for undefined.  API doesn't send percipitation data if it isn't raining.
+    console.log("rain meter ", precipitation)
+    frame.textContent = ("Rain fall, " + precipitation + " inches in the last hour.")
+  }
 }
 
 const updateSunriseSunset = (weatherData) => {
