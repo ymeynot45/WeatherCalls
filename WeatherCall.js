@@ -426,7 +426,7 @@ const updateWind = (windSpeed, windDeg, locationOnPage) => {
 
 const updateWindSpeed = (windSpeed, locationOnPage) => {
   const frame = locationOnPage.querySelector('.wind-speed')
-  frame.innerHTML = ("Wind Speed - " + windSpeed)
+  frame.innerHTML = windSpeed
 }
 
 const updateWindDirection = (windDegrees, locationOnPage) => {
@@ -468,10 +468,10 @@ const updateWindDirection = (windDegrees, locationOnPage) => {
 }
 
 const updatePrecipitation = (weatherData, locationOnPage) => {
-  if (weatherData.rain['3h'] !== undefined) {
+  if (weatherData.rain['1h'] !== undefined) {
     const frame = locationOnPage.querySelector('.precipitation')
-    const precipitation = weatherData.rain['3h'] //   -- not yet actionable until I pass a check for undefined.  API doesn't send current percipitation data if it isn't raining.
-    frame.innerHTML = ("Rain fall, " + precipitation + " inches in the last hour.")
+    const precipitation = weatherData.rain['1h'] //   -- not yet actionable until I pass a check for undefined.  API doesn't send current percipitation data if it isn't raining.
+    frame.innerHTML = precipitation
   }
 }
 
