@@ -394,7 +394,8 @@ const findWeatherData = async function (completeWeatherUrl) {
   try {
     const response = await fetch(completeWeatherUrl)
     const weatherData = await response.json()
-    updatePage(weatherData, DISPLAYCURRENT)
+    console.log("weather data  ", weatherData) // Delete when done
+    updatePage(weatherData.current, DISPLAYCURRENT)
   } catch (error) {
     alert(error)
   }
@@ -405,12 +406,12 @@ const clearForm = () => {
 };
 
 const updatePage = (weatherData, locationOnPage) => {
-  console.log("weather data  ", weatherData, locationOnPage) // Delete when done
-  updateTemperature(weatherData.current.temp, locationOnPage)
-  updateWind(weatherData.current.wind_speed, weatherData.current.wind_deg, locationOnPage)
-  updatePrecipitation(weatherData.current, locationOnPage)
-  updateSunriseSunset(weatherData.current.sunrise, weatherData.current.sunset, locationOnPage)
-  updateHumidity(weatherData)
+  
+  updateTemperature(weatherData.temp, locationOnPage)
+  updateWind(weatherData.wind_speed, weatherData.wind_deg, locationOnPage)
+  updatePrecipitation(weatherData, locationOnPage)
+  updateSunriseSunset(weatherData.sunrise, weatherData.sunset, locationOnPage)
+  updateHumidity(weatherData.humidity, locationOnPage)
 }
 
 const updateTemperature = (temp, locationOnPage) => {
@@ -425,7 +426,7 @@ const updateWind = (windSpeed, windDeg, locationOnPage) => {
 
 const updateWindSpeed = (windSpeed, locationOnPage) => {
   const frame = locationOnPage.querySelector('.wind-speed')
-  frame.innerHTML = windSpeed
+  frame.innerHTML = ("Wind Speed - " + windSpeed)
 }
 
 const updateWindDirection = (windDegrees, locationOnPage) => {
@@ -487,6 +488,11 @@ const updateSunrise = (sunrise, locationOnPage) => {
 const updateSunset = (sunset, locationOnPage) => {
   const frame = locationOnPage.querySelector('.sunset')
   frame.innerHTML = convertTime(sunset)
+}
+
+const updateHumidity = (humidity, locationOnPage) => {
+  const frame = locationOnPage.querySelector('.humidity')
+  frame.innerHTML = (humidity + "% Humidity")
 }
 
 const convertTime = (rawTime) => {
