@@ -6,9 +6,8 @@
     <title>Weather</title>
   </head>
   <body>
-    <div class='body'>
-    <div id='user_input'>
-    </div>
+    <div id='user_input'></div>
+    <div id='api_response'><span id='city_header'></span>
       <div id='intro'></div>
       <div id='current_weather_display'>
         <div id='temperature_title'>Temperature
@@ -16,15 +15,15 @@
           <button id="conversion_button">F/C</button>
         </div>
         <div class='humidity'></div>
-        <div id='precipitation' class='precipitation'>
-        </div>
+        <div id='precipitation' > Rain Fall Over the Last Hour </div><span class='precipitation'></span><span id='precipitation_units'></span>
+      
         <div id='wind'>
-          <div id='wind_speed'class='wind-speed'>Wind Speed</div><span id='wind_speed_unit_display' class='wind-speed'>Mile per hour</span>
-          <div id='wind_direction' class='wind-direction'>Direction</div><span id='wind_direction_unit_display' class='wind-direction'></span>
+          <div id='wind_speed'>Wind Speed </div><span class='wind-speed'></span><span id='wind_speed_unit_display'> Mile per hour</span>
+          <div id='wind_direction' >Direction </div><span class='wind-direction'></span><span id='wind_direction_unit_display'></span>
         </div>
         <div id='sunrise-set'>
-          <div id='sunrise' class='sunrise'></div><span id="sunrise_unit_display" class='sunrise'>Sunrise</span>
-          <div id='sunset' class='sunset'></div><span id="sunset_unit_display" class='sunset'>Sunset</span>
+          <div id='sunrise' class='sunrise'></div><span id="sunrise_unit_display" class='sunrise'> Sunrise</span>
+          <div id='sunset' class='sunset'></div><span id="sunset_unit_display" class='sunset'> Sunset</span>
         </div>
       </div>
     </div>

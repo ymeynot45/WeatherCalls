@@ -425,7 +425,9 @@ const updateWind = (windSpeed, windDeg, locationOnPage) => {
 }
 
 const updateWindSpeed = (windSpeed, locationOnPage) => {
+  console.log(locationOnPage)
   const frame = locationOnPage.querySelector('.wind-speed')
+  console.log(frame)
   frame.innerHTML = windSpeed
 }
 
@@ -624,6 +626,7 @@ const handleSubmit = (e) => {
   const stateCode = e.target[1].value
   const country = e.target[2].value
   // Every thing else goes here
+  const test = document.getElementById('city_header').innerHTML = city
   makeAPICall(city, stateCode, country, APIKEY)
 }
 
