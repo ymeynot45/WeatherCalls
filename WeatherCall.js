@@ -410,7 +410,7 @@ const clearForm = () => {
 const updatePage = (weatherData) => {
   console.log("weather data  ", weatherData) // Delete when done
   updateTemperature(weatherData.current.temp)
-  // updateWind(weatherData.wind)
+  updateWind(weatherData.current.wind_speed, weatherData.current.wind_deg)
   // updatePrecipitation(weatherData)
   // updateSunriseSunset(weatherData.sys)
 }
@@ -420,9 +420,9 @@ const updateTemperature = (temp) => {
   frame.innerHTML = intialConversion(temp)
 }
 
-const updateWind = (weatherData) => {
-  updateWindSpeed(weatherData.speed)
-  updateWindDirection(weatherData.deg)
+const updateWind = (windSpeed, windDeg) => {
+  updateWindSpeed(windSpeed)
+  updateWindDirection(windDeg)
 }
 
 const updateWindSpeed = (windSpeed) => {
@@ -579,13 +579,6 @@ const locationForm = () => {
   cityImput.setAttribute('name', "Input City")
   cityImput.setAttribute('placeholder', "City")
   createform.appendChild(cityImput)
-
-  // let stateCodeImput = document.createElement('input')
-  // stateCodeImput.setAttribute('id', 'state_code_input_box')
-  // stateCodeImput.setAttribute('type', 'text')
-  // stateCodeImput.setAttribute('name', "Input State")
-  // stateCodeImput.setAttribute('placeholder', "State")
-  // createform.appendChild(stateCodeImput)
 
   let stateCodeImput = document.createElement('select')
   stateCodeImput.setAttribute('id', 'state_code_input_box')
