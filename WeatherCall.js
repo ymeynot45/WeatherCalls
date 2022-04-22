@@ -5,6 +5,115 @@ const buildCityLocationUrl = (cityName, stateCode, country, APIKEY) => {
 const insertLatLonUrl = (lat, lon, APIKEY) => {
   return `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${APIKEY}`
 }
+
+const STATENAMES = [ 'State: if applicable',
+  'Alabama (AL)',
+  'Alaska (AK)',
+  'Arizona (AZ)',
+  'Arkansas (AR)',
+  'California (CA)',
+  'Colorado (CO)',
+  'Connecticut (CT)',
+  'Delaware (DE)',
+  'District Of Columbia (DC)',
+  'Florida (FL)',
+  'Georgia (GA)',
+  'Hawaii (HI)',
+  'Idaho (ID)',
+  'Illinois (IL)',
+  'Indiana (IN)',
+  'Iowa (IA)',
+  'Kansas (KS)',
+  'Kentucky (KY)',
+  'Louisiana (LA)',
+  'Maine (ME)',
+  'Maryland (MD)',
+  'Massachusetts (MA)',
+  'Michigan (MI)',
+  'Minnesota (MN)',
+  'Mississippi (MS)',
+  'Missouri (MO)',
+  'Montana (MT)',
+  'Nebraska (NE)',
+  'Nevada (NV)',
+  'New Hampshire (NH)',
+  'New Jersey (NJ)',
+  'New Mexico (NM)',
+  'New York (NY)',
+  'North Carolina (NC)',
+  'North Dakota (ND)',
+  'Ohio (OH)',
+  'Oklahoma (OK)',
+  'Oregon (OR)',
+  'Pennsylvania (PA)',
+  'Rhode Island (RI)',
+  'South Carolina (SC)',
+  'South Dakota (SD)',
+  'Tennessee (TN)',
+  'Texas (TX)',
+  'Utah (UT)',
+  'Vermont (VT)',
+  'Virginia (VA)',
+  'Washington (WA)',
+  'West Virginia (WV)',
+  'Wisconsin (WI)',
+  'Wyoming (WY)'
+]
+
+const STATECODES = [ '',
+  "AL",
+  "AK",
+  "AZ",
+  "AR",
+  "CA",
+  "CO",
+  "CT",
+  "DE",
+  "DC",
+  "FL",
+  "GA",
+  "HI",
+  "ID",
+  "IL",
+  "IN",
+  "IA",
+  "KS",
+  "KY",
+  "LA",
+  "ME",
+  "MD",
+  "MA",
+  "MI",
+  "MN",
+  "MS",
+  "MO",
+  "MT",
+  "NE",
+  "NV",
+  "NH",
+  "NJ",
+  "NM",
+  "NY",
+  "NC",
+  "ND",
+  "OH",
+  "OK",
+  "OR",
+  "PA",
+  "RI",
+  "SC",
+  "SD",
+  "TN",
+  "TX",
+  "UT",
+  "VT",
+  "VA",
+  "WA",
+  "WV",
+  "WI",
+  "WY"
+]
+
 const DISPLAY = document.getElementById('weather_display')
 
 const makeAPICall = async function(city, stateCode, country, APIKEY){
@@ -49,7 +158,7 @@ const clearForm = () => {
 
 const updatePage = (weatherData) => {
   console.log("weather data  ", weatherData) // Delete when done
-  // updateTemperature(weatherData.main.temp)
+  updateTemperature(weatherData.current.temp)
   // updateWind(weatherData.wind)
   // updatePrecipitation(weatherData)
   // updateSunriseSunset(weatherData.sys)
@@ -220,12 +329,25 @@ const locationForm = () => {
   cityImput.setAttribute('placeholder', "City")
   createform.appendChild(cityImput)
 
-  let stateCodeImput = document.createElement('input')
+  // let stateCodeImput = document.createElement('input')
+  // stateCodeImput.setAttribute('id', 'state_code_input_box')
+  // stateCodeImput.setAttribute('type', 'text')
+  // stateCodeImput.setAttribute('name', "Input State")
+  // stateCodeImput.setAttribute('placeholder', "State")
+  // createform.appendChild(stateCodeImput)
+
+  let stateCodeImput = document.createElement('select')
   stateCodeImput.setAttribute('id', 'state_code_input_box')
-  stateCodeImput.setAttribute('type', 'text')
   stateCodeImput.setAttribute('name', "Input State")
   stateCodeImput.setAttribute('placeholder', "State")
   createform.appendChild(stateCodeImput)
+  STATECODES.forEach (function(e, index){
+    const option = document.createElement('option')
+    const optionText = document.createTextNode(STATENAMES[index])
+    option.appendChild(optionText)
+    option.setAttribute('value', e)
+    stateCodeImput.appendChild(option)
+  })
 
   let countryImput = document.createElement('input')
   countryImput.setAttribute('id', 'country_input_box')
