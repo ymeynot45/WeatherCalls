@@ -60,7 +60,7 @@ const STATENAMES = [ 'State: if applicable',
   'Wyoming (WY)'
 ]
 
-const STATECODES = [ '',
+const STATECODES = [ '',  // Blank default entry for those not in the USA.
   "AL",
   "AK",
   "AZ",
@@ -365,7 +365,7 @@ const COUNTRIES = [ "United States",
 "Zimbabwe",
 ]
 
-const DISPLAY = document.getElementById('weather_display')
+const DISPLAYCURRENT = document.getElementById('current_weather_display')
 
 const makeAPICall = async function(city, stateCode, country, APIKEY){
   const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
@@ -397,7 +397,7 @@ const findWeatherData = async function (completeWeatherUrl) {
   try {
     const response = await fetch(completeWeatherUrl)
     const weatherData = await response.json()
-    updatePage(weatherData)
+    updatePage(weatherData, DISPLAYCURRENT)
   } catch (error) {
     alert(error)
   }
@@ -407,31 +407,31 @@ const clearForm = () => {
   document.getElementById('location_entry_form').reset();
 };
 
-const updatePage = (weatherData) => {
-  console.log("weather data  ", weatherData) // Delete when done
-  updateTemperature(weatherData.current.temp)
-  updateWind(weatherData.current.wind_speed, weatherData.current.wind_deg)
-  updatePrecipitation(weatherData.current)
-  updateSunriseSunset(weatherData.current.sunrise, weatherData.current.sunset)
+const updatePage = (weatherData, locationOnPage) => {
+  console.log("weather data  ", weatherData, locationOnPage) // Delete when done
+  updateTemperature(weatherData.current.temp, locationOnPage)
+  updateWind(weatherData.current.wind_speed, weatherData.current.wind_deg, locationOnPage)
+  updatePrecipitation(weatherData.current, locationOnPage)
+  updateSunriseSunset(weatherData.current.sunrise, weatherData.current.sunset, locationOnPage)
 }
 
-const updateTemperature = (temp) => {
-  const frame = document.getElementById('temperature')
+const updateTemperature = (temp, locationOnPage) => {
+  const frame = locationOnPage.querySelector('.temperature')
   frame.innerHTML = intialConversion(temp)
 }
 
-const updateWind = (windSpeed, windDeg) => {
-  updateWindSpeed(windSpeed)
-  updateWindDirection(windDeg)
+const updateWind = (windSpeed, windDeg, locationOnPage) => {
+  updateWindSpeed(windSpeed, locationOnPage)
+  updateWindDirection(windDeg, locationOnPage)
 }
 
-const updateWindSpeed = (windSpeed) => {
-  const frame = document.getElementById('wind_speed')
+const updateWindSpeed = (windSpeed, locationOnPage) => {
+  const frame = locationOnPage.querySelector('.wind-speed')
   frame.innerHTML = windSpeed
 }
 
-const updateWindDirection = (windDegrees) => {
-  const frame = document.getElementById('wind_direction')
+const updateWindDirection = (windDegrees, locationOnPage) => {
+  const frame = locationOnPage.querySelector('.wind-direction')
   let direction = ''
   if (windDegrees > 348 || windDegrees < 12){
    direction = "North"
@@ -468,27 +468,26 @@ const updateWindDirection = (windDegrees) => {
   frame.innerHTML = direction
 }
 
-const updatePrecipitation = (weatherData) => {
-  if (weatherData.rain !== undefined) {
-    const frame = document.getElementById('percipitation')
+const updatePrecipitation = (weatherData, locationOnPage) => {
+  if (weatherData.rain['3h'] !== undefined) {
+    const frame = locationOnPage.querySelector('.precipitation')
     const precipitation = weatherData.rain['3h'] //   -- not yet actionable until I pass a check for undefined.  API doesn't send current percipitation data if it isn't raining.
-    console.log("rain meter ", precipitation)
-    frame.textContent = ("Rain fall, " + precipitation + " inches in the last hour.")
+    frame.innerHTML = ("Rain fall, " + precipitation + " inches in the last hour.")
   }
 }
 
-const updateSunriseSunset = (sunrise, sunset) => {
-  updateSunrise(sunrise)
-  updateSunset(sunset)
+const updateSunriseSunset = (sunrise, sunset, locationOnPage) => {
+  updateSunrise(sunrise, locationOnPage)
+  updateSunset(sunset, locationOnPage)
 }
 
-const updateSunrise = (sunrise) => {
-  const frame = document.getElementById('sunrise')
+const updateSunrise = (sunrise, locationOnPage) => {
+  const frame = locationOnPage.querySelector('.sunrise')
   frame.innerHTML = convertTime(sunrise)
 }
 
-const updateSunset = (sunset) => {
-  const frame = document.getElementById('sunset')
+const updateSunset = (sunset, locationOnPage) => {
+  const frame = locationOnPage.querySelector('.sunset')
   frame.innerHTML = convertTime(sunset)
 }
 
