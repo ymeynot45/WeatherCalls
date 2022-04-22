@@ -369,9 +369,7 @@ const DISPLAYCURRENT = document.getElementById('current_weather_display')
 
 const makeAPICall = async function(city, stateCode, country, APIKEY){
   const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
-  console.log("location url", completeCityUrl)
   const locationData = await findLocationData(completeCityUrl)
-  console.log("location data when building the weather URL ", locationData)
   const weatherData = await findWeatherData(insertLatLonUrl(locationData[0].lat , locationData[0].lon , APIKEY)) //Currently hard coded to work with only the first city from the api call.
   clearForm()
 }
@@ -380,7 +378,6 @@ const findLocationData = async function (completeCityUrl) {
   try {
     const response = await fetch(completeCityUrl)
     const locationData = await response.json()
-    console.log("location data after json call ", locationData)
     return locationData
   } catch (error) {
     alert(error)
@@ -413,6 +410,7 @@ const updatePage = (weatherData, locationOnPage) => {
   updateWind(weatherData.current.wind_speed, weatherData.current.wind_deg, locationOnPage)
   updatePrecipitation(weatherData.current, locationOnPage)
   updateSunriseSunset(weatherData.current.sunrise, weatherData.current.sunset, locationOnPage)
+  updateHumidity(weatherData)
 }
 
 const updateTemperature = (temp, locationOnPage) => {
