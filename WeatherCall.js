@@ -412,7 +412,7 @@ const updatePage = (weatherData) => {
   updateTemperature(weatherData.current.temp)
   updateWind(weatherData.current.wind_speed, weatherData.current.wind_deg)
   // updatePrecipitation(weatherData)
-  // updateSunriseSunset(weatherData.sys)
+  updateSunriseSunset(weatherData.current.sunrise, weatherData.current.sunset)
 }
 
 const updateTemperature = (temp) => {
@@ -477,19 +477,19 @@ const updatePrecipitation = (weatherData) => {
   }
 }
 
-const updateSunriseSunset = (weatherData) => {
-  updateSunrise(weatherData)
-  updateSunset(weatherData)
+const updateSunriseSunset = (sunrise, sunset) => {
+  updateSunrise(sunrise)
+  updateSunset(sunset)
 }
 
-const updateSunrise = (weatherData) => {
+const updateSunrise = (sunrise) => {
   const frame = document.getElementById('sunrise')
-  frame.innerHTML = convertTime(weatherData.sunrise)
+  frame.innerHTML = convertTime(sunrise)
 }
 
-const updateSunset = (weatherData) => {
+const updateSunset = (sunset) => {
   const frame = document.getElementById('sunset')
-  frame.innerHTML = convertTime(weatherData.sunset)
+  frame.innerHTML = convertTime(sunset)
 }
 
 const convertTime = (rawTime) => {
