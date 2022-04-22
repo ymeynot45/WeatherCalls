@@ -411,7 +411,7 @@ const updatePage = (weatherData) => {
   console.log("weather data  ", weatherData) // Delete when done
   updateTemperature(weatherData.current.temp)
   updateWind(weatherData.current.wind_speed, weatherData.current.wind_deg)
-  // updatePrecipitation(weatherData)
+  updatePrecipitation(weatherData.current)
   updateSunriseSunset(weatherData.current.sunrise, weatherData.current.sunset)
 }
 
@@ -471,7 +471,7 @@ const updateWindDirection = (windDegrees) => {
 const updatePrecipitation = (weatherData) => {
   if (weatherData.rain !== undefined) {
     const frame = document.getElementById('percipitation')
-    const precipitation = weatherData.rain['1h'] //   -- not yet actionable until I pass a check for undefined.  API doesn't send percipitation data if it isn't raining.
+    const precipitation = weatherData.rain['3h'] //   -- not yet actionable until I pass a check for undefined.  API doesn't send current percipitation data if it isn't raining.
     console.log("rain meter ", precipitation)
     frame.textContent = ("Rain fall, " + precipitation + " inches in the last hour.")
   }
