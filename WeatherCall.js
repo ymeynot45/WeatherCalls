@@ -366,7 +366,7 @@ const COUNTRIES = [ "United States",
 ]
 
 const DISPLAYCURRENT = document.getElementById('current_weather_display')
-
+const DISPLAYDAYZERO = document.getElementById('day_zero_weather_display')
 const makeAPICall = async function(city, stateCode, country, APIKEY){
   const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
   const locationData = await findLocationData(completeCityUrl)
@@ -396,6 +396,7 @@ const findWeatherData = async function (completeWeatherUrl) {
     const weatherData = await response.json()
     console.log("weather data  ", weatherData) // Delete when done
     updatePage(weatherData.current, DISPLAYCURRENT) // run multiple times with different weather. based on the location it is going!
+    updatePage(weatherData.daily[0], DISPLAYDAYZERO)
   } catch (error) {
     alert(error)
   }
@@ -415,6 +416,7 @@ const updatePage = (weatherData, locationOnPage) => {
 }
 
 const updateTemperature = (temp, locationOnPage) => {
+  if(isNaN(temp)){temp = temp.day}
   const frame = locationOnPage.querySelector('.temperature')
   frame.innerHTML = intialConversion(temp)
 }
@@ -473,9 +475,7 @@ const updatePrecipitation = (weatherData, locationOnPage) => {
     const precipitation = weatherData.rain['1h'] //   -- not yet actionable until I pass a check for undefined.  API doesn't send current percipitation data if it isn't raining.
     frame.innerHTML = precipitation
   }else {
-    console.log("HERE")
     const frame = locationOnPage.querySelector('.precipitation')
-    console.log(frame)
     frame.innerHTML = " None "
   }
 }
