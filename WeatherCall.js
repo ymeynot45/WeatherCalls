@@ -395,7 +395,7 @@ const findWeatherData = async function (completeWeatherUrl) {
     const response = await fetch(completeWeatherUrl)
     const weatherData = await response.json()
     console.log("weather data  ", weatherData) // Delete when done
-    updatePage(weatherData.current, DISPLAYCURRENT)
+    updatePage(weatherData.current, DISPLAYCURRENT) // run multiple times with different weather. based on the location it is going!
   } catch (error) {
     alert(error)
   }
@@ -406,12 +406,12 @@ const clearForm = () => {
 };
 
 const updatePage = (weatherData, locationOnPage) => {
-  
   updateTemperature(weatherData.temp, locationOnPage)
   updateWind(weatherData.wind_speed, weatherData.wind_deg, locationOnPage)
-  updatePrecipitation(weatherData, locationOnPage)
   updateSunriseSunset(weatherData.sunrise, weatherData.sunset, locationOnPage)
   updateHumidity(weatherData.humidity, locationOnPage)
+  updateCondition(weatherData.weather[0].description, locationOnPage)
+  updatePrecipitation(weatherData, locationOnPage)
 }
 
 const updateTemperature = (temp, locationOnPage) => {
@@ -425,9 +425,7 @@ const updateWind = (windSpeed, windDeg, locationOnPage) => {
 }
 
 const updateWindSpeed = (windSpeed, locationOnPage) => {
-  console.log(locationOnPage)
   const frame = locationOnPage.querySelector('.wind-speed')
-  console.log(frame)
   frame.innerHTML = windSpeed
 }
 
@@ -470,10 +468,15 @@ const updateWindDirection = (windDegrees, locationOnPage) => {
 }
 
 const updatePrecipitation = (weatherData, locationOnPage) => {
-  if (weatherData.rain['1h'] !== undefined) {
+  if (weatherData.rain !== undefined) {
     const frame = locationOnPage.querySelector('.precipitation')
     const precipitation = weatherData.rain['1h'] //   -- not yet actionable until I pass a check for undefined.  API doesn't send current percipitation data if it isn't raining.
     frame.innerHTML = precipitation
+  }else {
+    console.log("HERE")
+    const frame = locationOnPage.querySelector('.precipitation')
+    console.log(frame)
+    frame.innerHTML = " None "
   }
 }
 
@@ -495,6 +498,11 @@ const updateSunset = (sunset, locationOnPage) => {
 const updateHumidity = (humidity, locationOnPage) => {
   const frame = locationOnPage.querySelector('.humidity')
   frame.innerHTML = (humidity + "% Humidity")
+}
+
+const updateCondition = (condition, locationOnPage) => {
+  const frame = locationOnPage.querySelector('.condition')
+  frame.innerHTML = condition
 }
 
 const convertTime = (rawTime) => {
@@ -561,11 +569,11 @@ const windConversionSet = (system) => {
   if(system === "C") {
     imperialWind = toImperialWindConversion(currentWind.innerHTML)
     currentWind.innerHTML = imperialWind
-    display.innerHTML = "Mile per hour"
+    display.innerHTML = " Mile per hour"
   }else if (system === "F"){
     metricWind = toMetricWindConversion(currentWind.innerHTML)
     currentWind.innerHTML = metricWind
-    display.innerHTML = "Meters per Second"
+    display.innerHTML = " Meters per Second"
   }
 }
 
