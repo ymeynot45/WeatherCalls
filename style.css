@@ -3,6 +3,17 @@
   font-weight: bold;
 }
 
+.week-report {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.days {
+  border: 2px solid black;
+  
+}
+
 #weather_display {
 
 }

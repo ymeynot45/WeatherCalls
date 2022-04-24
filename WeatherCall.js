@@ -362,9 +362,8 @@ const COUNTRIES = [ "United States",
 "Western Sahara",
 "Yemen",
 "Zambia",
-"Zimbabwe",
+"Zimbabwe"
 ]
-
 const DISPLAYCURRENT = document.getElementById('current_weather_display')
 const DISPLAYDAYPLUSONE = document.getElementById('day_plus_one_weather_display')
 const DISPLAYDAYPLUSTWO = document.getElementById('day_plus_two_weather_display')
