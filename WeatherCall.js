@@ -366,7 +366,13 @@ const COUNTRIES = [ "United States",
 ]
 
 const DISPLAYCURRENT = document.getElementById('current_weather_display')
-const DISPLAYDAYZERO = document.getElementById('day_zero_weather_display')
+const DISPLAYDAYPLUSONE = document.getElementById('day_plus_one_weather_display')
+const DISPLAYDAYPLUSTWO = document.getElementById('day_plus_two_weather_display')
+const DISPLAYDAYPLUSTHREE = document.getElementById('day_plus_three_weather_display')
+const DISPLAYDAYPLUSFOUR = document.getElementById('day_plus_four_weather_display')
+const DISPLAYDAYPLUSFIVE = document.getElementById('day_plus_five_weather_display')
+const DISPLAYDAYPLUSSIX = document.getElementById('day_plus_six_weather_display')
+
 const makeAPICall = async function(city, stateCode, country, APIKEY){
   const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
   const locationData = await findLocationData(completeCityUrl)
@@ -396,7 +402,12 @@ const findWeatherData = async function (completeWeatherUrl) {
     const weatherData = await response.json()
     console.log("weather data  ", weatherData) // Delete when done
     updatePage(weatherData.current, DISPLAYCURRENT) // run multiple times with different weather. based on the location it is going!
-    updatePage(weatherData.daily[0], DISPLAYDAYZERO)
+    updatePage(weatherData.daily[0], DISPLAYDAYPLUSONE)
+    updatePage(weatherData.daily[1], DISPLAYDAYPLUSTWO)
+    updatePage(weatherData.daily[2], DISPLAYDAYPLUSTHREE)
+    updatePage(weatherData.daily[3], DISPLAYDAYPLUSFOUR)
+    updatePage(weatherData.daily[4], DISPLAYDAYPLUSFIVE)
+    updatePage(weatherData.daily[5], DISPLAYDAYPLUSSIX)
   } catch (error) {
     alert(error)
   }
