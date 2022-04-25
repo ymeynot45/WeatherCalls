@@ -574,16 +574,20 @@ const unitConversionSet = (systemFrame) => {
   }
 }
 
-const windConversionSet = (system) => {
+const windConversionSet = (currentSystem) => {
   let windSpeedUnit = document.querySelectorAll('.wind-speed-unit-display')
-  let currentWindSpeed = document.getElementById('wind_speed')
-  if(system === "C") {
-    imperialWind = toImperialWindConversion(currentWindSpeed.innerHTML)
-    currentWindSpeed.innerHTML = imperialWind
+  let currentWindSpeed = document.querySelectorAll('.wind-speed')
+  if(currentSystem === "C") {
+    Array.prototype.forEach.call(currentWindSpeed, function(windSpeedSpan) {
+      imperialWindSpeed = toImperialWindConversion(windSpeedSpan.innerHTML)
+      windSpeedSpan.innerHTML = imperialWindSpeed
+    })
     Array.prototype.forEach.call(windSpeedUnit, function(span) {span.innerHTML = " Miles per hour "})
-  }else if (system === "F"){
-    metricWind = toMetricWindConversion(currentWindSpeed.innerHTML)
-    currentWindSpeed.innerHTML = metricWind
+  }else if (currentSystem === "F"){
+    Array.prototype.forEach.call(currentWindSpeed, function(windSpeedSpan) {
+      imperialWindSpeed = toMetricWindConversion(windSpeedSpan.innerHTML)
+      windSpeedSpan.innerHTML = imperialWindSpeed
+    })
     Array.prototype.forEach.call(windSpeedUnit, function(span) {span.innerHTML = " Meters per Second"})
   }
 }
