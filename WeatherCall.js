@@ -559,9 +559,7 @@ const converstionHandler = () => {
 }
 
 const unitConversionSet = (systemFrame) => {
-  console.log(systemFrame)
   const globalTempUnitFrame = document.querySelectorAll('.temperature-unit-display')
-  console.log("Global temp unit frame - ", globalTempUnitFrame)
   let currentTemp = document.getElementById('temperature').innerHTML
   if(systemFrame.innerHTML === "C") {
     windConversionSet(systemFrame.innerHTML)
@@ -577,16 +575,16 @@ const unitConversionSet = (systemFrame) => {
 }
 
 const windConversionSet = (system) => {
-  let display = document.getElementById('wind_speed_unit_display')
-  let currentWind = document.getElementById('wind_speed')
+  let windSpeedUnit = document.querySelectorAll('.wind-speed-unit-display')
+  let currentWindSpeed = document.getElementById('wind_speed')
   if(system === "C") {
-    imperialWind = toImperialWindConversion(currentWind.innerHTML)
-    currentWind.innerHTML = imperialWind
-    display.innerHTML = " Mile per hour"
+    imperialWind = toImperialWindConversion(currentWindSpeed.innerHTML)
+    currentWindSpeed.innerHTML = imperialWind
+    Array.prototype.forEach.call(windSpeedUnit, function(span) {span.innerHTML = " Miles per hour "})
   }else if (system === "F"){
-    metricWind = toMetricWindConversion(currentWind.innerHTML)
-    currentWind.innerHTML = metricWind
-    display.innerHTML = " Meters per Second"
+    metricWind = toMetricWindConversion(currentWindSpeed.innerHTML)
+    currentWindSpeed.innerHTML = metricWind
+    Array.prototype.forEach.call(windSpeedUnit, function(span) {span.innerHTML = " Meters per Second"})
   }
 }
 
