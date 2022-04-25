@@ -560,17 +560,21 @@ const converstionHandler = () => {
 
 const unitConversionSet = (systemFrame) => {
   const globalTempUnitFrame = document.querySelectorAll('.temperature-unit-display')
-  let currentTemp = document.getElementById('temperature').innerHTML
+  const globalTempNumbers = document.querySelectorAll('.temperature')
   if(systemFrame.innerHTML === "C") {
     windConversionSet(systemFrame.innerHTML)
     Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = "F"})
-    currentTemp = toImperialTempConversion(currentTemp)
-    document.getElementById('temperature').innerHTML = currentTemp.toFixed(1)
+    Array.prototype.forEach.call(globalTempNumbers, function(temperatureNumberSpan) {
+      currentTemp = toImperialTempConversion(temperatureNumberSpan.innerHTML)
+      temperatureNumberSpan.innerHTML = currentTemp.toFixed(1)
+    })
   }else if (systemFrame.innerHTML === "F"){
     windConversionSet(systemFrame.innerHTML)
     Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = "C"})
-    currentTemp = toMetricTempConversion(currentTemp)
-    document.getElementById('temperature').innerHTML = currentTemp.toFixed(1)
+    Array.prototype.forEach.call(globalTempNumbers, function(temperatureNumberSpan) {
+      currentTemp = toMetricTempConversion(temperatureNumberSpan.innerHTML)
+      temperatureNumberSpan.innerHTML = currentTemp.toFixed(1)
+    })
   }
 }
 
