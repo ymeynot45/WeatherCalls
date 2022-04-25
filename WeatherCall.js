@@ -553,21 +553,24 @@ const conversionListener = () => {
 }
 
 const converstionHandler = () => {
-  const currentSystem = document.getElementById('temperature_unit_display')
-    unitConversionSet(currentSystem)
+  const currentSystemFrame = document.getElementById('temperature_unit_display')
+    unitConversionSet(currentSystemFrame)
  
 }
 
-const unitConversionSet = (system) => {
+const unitConversionSet = (systemFrame) => {
+  console.log(systemFrame)
+  const globalTempUnitFrame = document.querySelectorAll('.temperature-unit-display')
+  console.log("Global temp unit frame - ", globalTempUnitFrame)
   let currentTemp = document.getElementById('temperature').innerHTML
-  if(system.innerHTML === "C") {
-    windConversionSet(system.innerHTML)
-    system.innerHTML = "F"
+  if(systemFrame.innerHTML === "C") {
+    windConversionSet(systemFrame.innerHTML)
+    Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = "F"})
     currentTemp = toImperialTempConversion(currentTemp)
     document.getElementById('temperature').innerHTML = currentTemp.toFixed(1)
-  }else if (system.innerHTML === "F"){
-    windConversionSet(system.innerHTML)
-    system.innerHTML = "C"
+  }else if (systemFrame.innerHTML === "F"){
+    windConversionSet(systemFrame.innerHTML)
+    Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = "C"})
     currentTemp = toMetricTempConversion(currentTemp)
     document.getElementById('temperature').innerHTML = currentTemp.toFixed(1)
   }
