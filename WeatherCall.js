@@ -365,7 +365,7 @@ const COUNTRIES = [ "United States",
 "Zimbabwe"
 ]
 const DISPLAYCURRENT = document.getElementById('current_weather_display')
-const DISPLAYDAYPLUSONE = document.getElementById('day_plus_one_weather_display')
+const DISPLAYDAYPLUSONE = document.getElementById('today')
 const DISPLAYDAYPLUSTWO = document.getElementById('day_plus_two_weather_display')
 const DISPLAYDAYPLUSTHREE = document.getElementById('day_plus_three_weather_display')
 const DISPLAYDAYPLUSFOUR = document.getElementById('day_plus_four_weather_display')
@@ -497,7 +497,6 @@ const updateWindDirection = (windDegrees, locationOnPage) => {
 
 const updatePrecipitation = (weatherData, locationOnPage) => {
   const precipitationNumberFrame = locationOnPage.querySelector('.precipitation, .current-precipitation')
-  console.log("Pre forEach Nodelist - ", precipitationNumberFrame)
   if (typeof weatherData.rain === 'number') {
     const precipitation = weatherData.rain
     precipitationNumberFrame.innerHTML = precipitation
