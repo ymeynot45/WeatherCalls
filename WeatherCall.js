@@ -480,13 +480,16 @@ const updateWindDirection = (windDegrees, locationOnPage) => {
 }
 
 const updatePrecipitation = (weatherData, locationOnPage) => {
-  if (weatherData.rain !== undefined) {
-    const frame = locationOnPage.querySelector('.precipitation')
-    const precipitation = weatherData.rain['1h'] //   -- not yet actionable until I pass a check for undefined.  API doesn't send current percipitation data if it isn't raining.
-    frame.innerHTML = precipitation
+  const precipitationNumberFrame = locationOnPage.querySelector('.precipitation, .current-precipitation')
+  console.log("Pre forEach Nodelist - ", precipitationNumberFrame)
+  if (typeof weatherData.rain === 'number') {
+    const precipitation = weatherData.rain
+    precipitationNumberFrame.innerHTML = precipitation
+  }else if(typeof weatherData.rain === 'number'){  
+    const precipitation = weatherData.rain
+    precipitationNumberFrame.innerHTML = precipitation
   }else {
-    const frame = locationOnPage.querySelector('.precipitation')
-    frame.innerHTML = " None "
+    precipitationNumberFrame.innerHTML = " None "
   }
 }
 
@@ -598,7 +601,7 @@ const windConversionSet = (currentSystem) => {
 
 
 const locationForm = () => {
-  frame = document.getElementById('user_input')
+  const frame = document.getElementById('user_input')
   let createform = document.createElement('form')
   createform.setAttribute('id', 'location_entry_form')
   createform.setAttribute('action', '')
