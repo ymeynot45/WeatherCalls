@@ -6,12 +6,16 @@
 .week-report {
   display: flex;
   flex-direction: row;
-
 }
 
 .days {
   border: 2px solid black;
-  
+  flex-grow: 1;
+}
+
+.alert-event{
+  background-color: red;
+  color: white;
 }
 
 #weather_display {

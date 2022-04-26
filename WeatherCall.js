@@ -371,6 +371,7 @@ const DISPLAYDAYPLUSTHREE = document.getElementById('day_plus_three_weather_disp
 const DISPLAYDAYPLUSFOUR = document.getElementById('day_plus_four_weather_display')
 const DISPLAYDAYPLUSFIVE = document.getElementById('day_plus_five_weather_display')
 const DISPLAYDAYPLUSSIX = document.getElementById('day_plus_six_weather_display')
+const DISPLAYALERTS = document.getElementById('alerts')
 
 const makeAPICall = async function(city, stateCode, country, APIKEY){
   const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
@@ -400,6 +401,7 @@ const findWeatherData = async function (completeWeatherUrl) {
     const response = await fetch(completeWeatherUrl)
     const weatherData = await response.json()
     console.log("weather data  ", weatherData) // Delete when done
+    updateAlert(weatherData.alerts, DISPLAYALERTS)
     updatePage(weatherData.current, DISPLAYCURRENT) // run multiple times with different weather. based on the location it is going!
     updatePage(weatherData.daily[0], DISPLAYDAYPLUSONE)
     updatePage(weatherData.daily[1], DISPLAYDAYPLUSTWO)
@@ -415,6 +417,20 @@ const findWeatherData = async function (completeWeatherUrl) {
 const clearForm = () => {
   document.getElementById('location_entry_form').reset();
 };
+
+const updateAlert = (alertData, alertFrame) => {
+  console.log("Alertdata - ", alertData)
+  Array.prototype.forEach.call(alertData, function(weatherAlert) {
+    const alertEventSpan = document.createElement('span')
+    alertEventSpan.setAttribute('class','alert-event')
+    alertFrame.appendChild(alertEventSpan)
+    const alertEventText = document.createTextNode(weatherAlert.event)
+    alertEventSpan.appendChild(alertEventText)
+    // -
+    const alertDescriptionText = document.createTextNode(weatherAlert.description)
+    alertEventSpan.appendChild(alertDescriptionText)
+  })
+}
 
 const updatePage = (weatherData, locationOnPage) => {
   updateTemperature(weatherData.temp, locationOnPage)
