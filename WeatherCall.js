@@ -372,6 +372,8 @@ const DISPLAYDAYPLUSFOUR = document.getElementById('day_plus_four_weather_displa
 const DISPLAYDAYPLUSFIVE = document.getElementById('day_plus_five_weather_display')
 const DISPLAYDAYPLUSSIX = document.getElementById('day_plus_six_weather_display')
 const DISPLAYALERTS = document.getElementById('alerts')
+const METRICDISPLAY = " C "
+const IMPERIALDISPLAY = " F "
 
 const makeAPICall = async function(city, stateCode, country, APIKEY){
   const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
@@ -427,7 +429,7 @@ const updateAlerts = (alertData, alertFrame) => {
     alertFrame.appendChild(alertEventSpan)
     const alertEventText = document.createTextNode(weatherAlert.event)
     alertEventSpan.appendChild(alertEventText)
-    // -
+    // - Work on again when I there is an alert to see.
     const alertDescriptionText = document.createTextNode(weatherAlert.description)
     alertEventSpan.appendChild(alertDescriptionText)
   })
@@ -505,7 +507,7 @@ const updatePrecipitation = (weatherData, locationOnPage) => {
     const precipitation = weatherData.rain
     precipitationNumberFrame.innerHTML = precipitation
   }else {
-    precipitationNumberFrame.innerHTML = " None "
+    precipitationNumberFrame.innerHTML = "- None "
   }
 }
 
@@ -544,7 +546,7 @@ const convertTime = (rawTime) => {
 const intialConversion = (kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
   const display = document.getElementById('temperature_unit_display')
-  display.innerHTML = "F"
+  display.innerHTML = IMPERIALDISPLAY
   return fahrenheit.toFixed(1)
 }
 
@@ -580,16 +582,16 @@ const converstionHandler = () => {
 const unitConversionSet = (systemFrame) => {
   const globalTempUnitFrame = document.querySelectorAll('.temperature-unit-display')
   const globalTempNumbers = document.querySelectorAll('.temperature')
-  if(systemFrame.innerHTML === "C") {
+  if(systemFrame.innerHTML === METRICDISPLAY) {
     windConversionSet(systemFrame.innerHTML)
-    Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = "F"})
+    Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = IMPERIALDISPLAY})
     Array.prototype.forEach.call(globalTempNumbers, function(temperatureNumberSpan) {
       currentTemp = toImperialTempConversion(temperatureNumberSpan.innerHTML)
       temperatureNumberSpan.innerHTML = currentTemp.toFixed(1)
     })
-  }else if (systemFrame.innerHTML === "F"){
+  }else if (systemFrame.innerHTML === IMPERIALDISPLAY){
     windConversionSet(systemFrame.innerHTML)
-    Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = "C"})
+    Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = METRICDISPLAY})
     Array.prototype.forEach.call(globalTempNumbers, function(temperatureNumberSpan) {
       currentTemp = toMetricTempConversion(temperatureNumberSpan.innerHTML)
       temperatureNumberSpan.innerHTML = currentTemp.toFixed(1)
@@ -600,13 +602,13 @@ const unitConversionSet = (systemFrame) => {
 const windConversionSet = (currentSystem) => {
   let windSpeedUnit = document.querySelectorAll('.wind-speed-unit-display')
   let currentWindSpeed = document.querySelectorAll('.wind-speed')
-  if(currentSystem === "C") {
+  if(currentSystem === METRICDISPLAY) {
     Array.prototype.forEach.call(currentWindSpeed, function(windSpeedSpan) {
       imperialWindSpeed = toImperialWindConversion(windSpeedSpan.innerHTML)
       windSpeedSpan.innerHTML = imperialWindSpeed
     })
     Array.prototype.forEach.call(windSpeedUnit, function(span) {span.innerHTML = " Miles per hour "})
-  }else if (currentSystem === "F"){
+  }else if (currentSystem === IMPERIALDISPLAY){
     Array.prototype.forEach.call(currentWindSpeed, function(windSpeedSpan) {
       imperialWindSpeed = toMetricWindConversion(windSpeedSpan.innerHTML)
       windSpeedSpan.innerHTML = imperialWindSpeed
@@ -614,7 +616,6 @@ const windConversionSet = (currentSystem) => {
     Array.prototype.forEach.call(windSpeedUnit, function(span) {span.innerHTML = " Meters per Second"})
   }
 }
-
 
 const locationForm = () => {
   const frame = document.getElementById('user_input')

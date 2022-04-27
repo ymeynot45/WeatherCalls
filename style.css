@@ -8,14 +8,36 @@
   flex-direction: row;
 }
 
-.days {
+.week-report > * {
   border: 2px solid black;
   flex-grow: 1;
+}
+
+.days {
+  font-weight: bold;
+}
+
+.days > * {
+  font-weight: normal;
 }
 
 .alert-event{
   background-color: red;
   color: white;
+}
+
+#temperature_title{
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.temperature, .precipitation, .current-precipitation{
+  margin: 0 10px 0;
+}
+
+.sunrise, .sunset, .wind-speed, .wind-direction {
+  margin-left: 10px;
 }
 
 #weather_display {
