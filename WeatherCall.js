@@ -401,7 +401,7 @@ const findWeatherData = async function (completeWeatherUrl) {
     const response = await fetch(completeWeatherUrl)
     const weatherData = await response.json()
     console.log("weather data  ", weatherData) // Delete when done
-    updateAlert(weatherData.alerts, DISPLAYALERTS)
+    if (weatherData.alerts) {updateAlerts(weatherData.alerts, DISPLAYALERTS)}
     updatePage(weatherData.current, DISPLAYCURRENT) // run multiple times with different weather. based on the location it is going!
     updatePage(weatherData.daily[0], DISPLAYDAYPLUSONE)
     updatePage(weatherData.daily[1], DISPLAYDAYPLUSTWO)
@@ -418,8 +418,9 @@ const clearForm = () => {
   document.getElementById('location_entry_form').reset();
 };
 
-const updateAlert = (alertData, alertFrame) => {
+const updateAlerts = (alertData, alertFrame) => {
   console.log("Alertdata - ", alertData)
+  // insert something to clear the old alerts 
   Array.prototype.forEach.call(alertData, function(weatherAlert) {
     const alertEventSpan = document.createElement('span')
     alertEventSpan.setAttribute('class','alert-event')
