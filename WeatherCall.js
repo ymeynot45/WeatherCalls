@@ -500,12 +500,15 @@ const updateWindDirection = (windDegrees, locationOnPage) => {
 
 const updatePrecipitation = (weatherData, locationOnPage) => {
   const precipitationNumberFrame = locationOnPage.querySelector('.precipitation, .current-precipitation')
-  if (typeof weatherData.rain === 'number') {
-    const precipitation = weatherData.rain
+  const precipitationUnitFrame = locationOnPage.querySelector('.precipitation-units')
+  if (typeof weatherData.rain?.['1h'] === 'number') {
+    const precipitation = weatherData.rain['1h']
     precipitationNumberFrame.innerHTML = precipitation
+    precipitationUnitFrame.innerHTML = "mm/h"
   }else if(typeof weatherData.rain === 'number'){  
     const precipitation = weatherData.rain
     precipitationNumberFrame.innerHTML = precipitation
+    precipitationUnitFrame.innerHTML = "mm"
   }else {
     precipitationNumberFrame.innerHTML = "- None "
   }
