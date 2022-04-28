@@ -40,6 +40,10 @@
   margin-left: 10px;
 }
 
+#current_flag {
+  margin: 0px 10px 0px;
+}
+
 #weather_display {
 
 }

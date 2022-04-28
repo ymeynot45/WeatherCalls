@@ -364,6 +364,8 @@ const COUNTRIES = [ "United States",
 "Zambia",
 "Zimbabwe"
 ]
+
+// const DAYSOFTHEWEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] //Might not need, as the time is in the API call.
 const DISPLAYCURRENT = document.getElementById('current_weather_display')
 const DISPLAYDAYPLUSONE = document.getElementById('today')
 const DISPLAYDAYPLUSTWO = document.getElementById('day_plus_two_weather_display')
@@ -372,8 +374,8 @@ const DISPLAYDAYPLUSFOUR = document.getElementById('day_plus_four_weather_displa
 const DISPLAYDAYPLUSFIVE = document.getElementById('day_plus_five_weather_display')
 const DISPLAYDAYPLUSSIX = document.getElementById('day_plus_six_weather_display')
 const DISPLAYALERTS = document.getElementById('alerts')
-const METRICDISPLAY = " C "
-const IMPERIALDISPLAY = " F "
+const METRICDISPLAY = "C"
+const IMPERIALDISPLAY = "F"
 
 const makeAPICall = async function(city, stateCode, country, APIKEY){
   const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
@@ -442,6 +444,8 @@ const updatePage = (weatherData, locationOnPage) => {
   updateHumidity(weatherData.humidity, locationOnPage)
   updateCondition(weatherData.weather[0].description, locationOnPage)
   updatePrecipitation(weatherData, locationOnPage)
+  updateDay(weatherData.dt, locationOnPage)
+  // updateHour(weatherData.dt, locationOnPage)
 }
 
 const updateTemperature = (temp, locationOnPage) => {
@@ -521,13 +525,22 @@ const updateSunriseSunset = (sunrise, sunset, locationOnPage) => {
 
 const updateSunrise = (sunrise, locationOnPage) => {
   const frame = locationOnPage.querySelector('.sunrise')
-  frame.innerHTML = convertTime(sunrise)
+  frame.innerHTML = convertTimeHourMin(sunrise)
 }
 
 const updateSunset = (sunset, locationOnPage) => {
   const frame = locationOnPage.querySelector('.sunset')
-  frame.innerHTML = convertTime(sunset)
+  frame.innerHTML = convertTimeHourMin(sunset)
 }
+
+const updateDay = (day, locationOnPage) => {
+  locationOnPage.firstChild.data = convertTimeDay(day)
+}
+
+// const updateHour = (hour, locationOnPage) => {
+//   const frame = locationOnPage.querySelector('')
+//   frame.innerHTML = convertTimeHourMin(hour)
+// }
 
 const updateHumidity = (humidity, locationOnPage) => {
   const frame = locationOnPage.querySelector('.humidity')
@@ -539,11 +552,24 @@ const updateCondition = (condition, locationOnPage) => {
   frame.innerHTML = condition
 }
 
-const convertTime = (rawTime) => {
+const convertTimeHourMin = (rawTime) => {
   const rawDate = new Date(rawTime * 1000)
   const wholeDate = rawDate.toString()
   time = wholeDate.slice(-41, -36)
   return time
+}
+
+const convertTimeDay = (rawTime) => {
+  const rawDate = new Date(rawTime * 1000)
+  const wholeDate = rawDate.toString()
+  time = wholeDate.slice(0, 10)
+  return time
+}
+
+const convertTimeHour = (rawTime) => {
+  const rawDate = new Date(rawTime * 1000)
+  const wholeDate = rawDate.toString()
+  console.log(wholeDate)
 }
 
 const intialConversion = (kTemp) => {
