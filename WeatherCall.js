@@ -1,3 +1,16 @@
+// Next steps
+// fix alerts
+// add UVI
+// add morn and night, min max to the daily's 
+// build hourly function
+// setup background images based on the current weather
+// resort HTML to put most important on top (affordances)
+// css this thing to looking decent, include expansions for each of the day divs start with min info
+// add cookies
+// css for multiple device sizes
+
+
+
 const APIKEY = '7e27e0dc168db6f6048cc43a08a5543f'
 const buildCityLocationUrl = (cityName, stateCode, country, APIKEY) => {
   return `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${country}&limit=1&appid=${APIKEY}`
@@ -365,14 +378,13 @@ const COUNTRIES = [ "United States",
 "Zimbabwe"
 ]
 
-// const DAYSOFTHEWEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] //Might not need, as the time is in the API call.
 const DISPLAYCURRENT = document.getElementById('current_weather_display')
-const DISPLAYDAYPLUSONE = document.getElementById('today')
-const DISPLAYDAYPLUSTWO = document.getElementById('day_plus_two_weather_display')
-const DISPLAYDAYPLUSTHREE = document.getElementById('day_plus_three_weather_display')
-const DISPLAYDAYPLUSFOUR = document.getElementById('day_plus_four_weather_display')
-const DISPLAYDAYPLUSFIVE = document.getElementById('day_plus_five_weather_display')
-const DISPLAYDAYPLUSSIX = document.getElementById('day_plus_six_weather_display')
+const DISPLAYTODAY = document.getElementById('today')
+const DISPLAYDAYPLUSONE = document.getElementById('day_plus_two_weather_display')
+const DISPLAYDAYPLUSTWO = document.getElementById('day_plus_three_weather_display')
+const DISPLAYDAYPLUSTHREE = document.getElementById('day_plus_four_weather_display')
+const DISPLAYDAYPLUSFOUR = document.getElementById('day_plus_five_weather_display')
+const DISPLAYDAYPLUSFIVE = document.getElementById('day_plus_six_weather_display')
 const DISPLAYALERTS = document.getElementById('alerts')
 const METRICDISPLAY = "C"
 const IMPERIALDISPLAY = "F"
@@ -406,13 +418,13 @@ const findWeatherData = async function (completeWeatherUrl) {
     const weatherData = await response.json()
     console.log("weather data  ", weatherData) // Delete when done
     if (weatherData.alerts) {updateAlerts(weatherData.alerts, DISPLAYALERTS)}
-    updatePage(weatherData.current, DISPLAYCURRENT) // run multiple times with different weather. based on the location it is going!
-    updatePage(weatherData.daily[0], DISPLAYDAYPLUSONE)
-    updatePage(weatherData.daily[1], DISPLAYDAYPLUSTWO)
-    updatePage(weatherData.daily[2], DISPLAYDAYPLUSTHREE)
-    updatePage(weatherData.daily[3], DISPLAYDAYPLUSFOUR)
-    updatePage(weatherData.daily[4], DISPLAYDAYPLUSFIVE)
-    updatePage(weatherData.daily[5], DISPLAYDAYPLUSSIX)
+    updatePage(weatherData.current, DISPLAYCURRENT) // run multiple times with different weather. based on the location it is going to on the page!
+    updatePage(weatherData.daily[0], DISPLAYTODAY)
+    updatePage(weatherData.daily[1], DISPLAYDAYPLUSONE)
+    updatePage(weatherData.daily[2], DISPLAYDAYPLUSTWO)
+    updatePage(weatherData.daily[3], DISPLAYDAYPLUSTHREE)
+    updatePage(weatherData.daily[4], DISPLAYDAYPLUSFOUR)
+    updatePage(weatherData.daily[5], DISPLAYDAYPLUSFIVE)
   } catch (error) {
     alert(error)
   }
