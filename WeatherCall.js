@@ -433,16 +433,13 @@ const clearForm = () => {
 };
 
 const updateAlerts = (alertData, alertFrame) => {
-  console.log("Alertdata - ", alertData)
-  // insert something to clear the old alerts 
-  if (alertFrame) { alertFrame.firstChild = ""} // Untested due to lack of current alerts from the api. I could fake it with a test but I want to progress on other things while this is currently more difficult than it needs to be.
+  if (alertFrame.firstChild) { alertFrame.firstChild.remove()} // Removes previous alert when someone puts in a second city.
   Array.prototype.forEach.call(alertData, function(weatherAlert) {
     const alertEventSpan = document.createElement('span')
     alertEventSpan.setAttribute('class','alert-event')
     alertFrame.appendChild(alertEventSpan)
     const alertEventText = document.createTextNode(weatherAlert.event)
     alertEventSpan.appendChild(alertEventText)
-    // - Work on again when I there is an alert to see.
     const alertDescriptionText = document.createTextNode(weatherAlert.description)
     alertEventSpan.appendChild(alertDescriptionText)
   })
