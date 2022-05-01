@@ -1,6 +1,5 @@
 // Next steps
 // fix alerts
-// add UVI
 // add morn and night, min max to the daily's 
 // build hourly function
 // setup background images based on the current weather
@@ -411,7 +410,6 @@ const buildWeatherUrl = (lat, lon, APIKEY) => {
   return completeWeatherUrl
 }
 
-
 const findWeatherData = async function (completeWeatherUrl) {
   try {
     const response = await fetch(completeWeatherUrl)
@@ -437,6 +435,7 @@ const clearForm = () => {
 const updateAlerts = (alertData, alertFrame) => {
   console.log("Alertdata - ", alertData)
   // insert something to clear the old alerts 
+  if (alertFrame) { alertFrame.firstChild = ""} // Untested due to lack of current alerts from the api. I could fake it with a test but I want to progress on other things while this is currently more difficult than it needs to be.
   Array.prototype.forEach.call(alertData, function(weatherAlert) {
     const alertEventSpan = document.createElement('span')
     alertEventSpan.setAttribute('class','alert-event')
@@ -457,7 +456,8 @@ const updatePage = (weatherData, locationOnPage) => {
   updateCondition(weatherData.weather[0].description, locationOnPage)
   updatePrecipitation(weatherData, locationOnPage)
   updateDay(weatherData.dt, locationOnPage)
-  // updateHour(weatherData.dt, locationOnPage)
+  updateUvi(weatherData.uvi, locationOnPage)
+  // updateHour(weatherData.dt, locationOnPage)  //implement when i create the hourly display
 }
 
 const updateTemperature = (temp, locationOnPage) => {
@@ -512,6 +512,11 @@ const updateWindDirection = (windDegrees, locationOnPage) => {
   }else if (windDegrees > 326 && windDegrees < 349){
     direction = "North-Northwest"}
   frame.innerHTML = direction
+}
+
+const updateUvi = (uviRating, locationOnPage) => {
+  const uviFrame = locationOnPage.querySelector('.uvi')
+  uviFrame.innerHTML = ("UVI level - " + uviRating)
 }
 
 const updatePrecipitation = (weatherData, locationOnPage) => {
