@@ -1,5 +1,4 @@
 // Next steps
-// fix alerts
 // add morn and night, min max to the daily's 
 // build hourly function
 // setup background images based on the current weather
@@ -454,13 +453,23 @@ const updatePage = (weatherData, locationOnPage) => {
   updatePrecipitation(weatherData, locationOnPage)
   updateDay(weatherData.dt, locationOnPage)
   updateUvi(weatherData.uvi, locationOnPage)
-  // updateHour(weatherData.dt, locationOnPage)  //implement when i create the hourly display
+  // updateHour(weatherData.dt, locationOnPage)  //implement when I create the hourly display
 }
 
 const updateTemperature = (temp, locationOnPage) => {
-  if(isNaN(temp)){temp = temp.day}
   const frame = locationOnPage.querySelector('.temperature')
-  frame.innerHTML = intialConversion(temp)
+  if(isNaN(temp)){
+    const tempDay = temp.day
+    const tempLow = temp.min
+    const tempHigh = temp.max
+    const lowTempFrame = locationOnPage.querySelector('.temp-low')
+    const highTempFrame = locationOnPage.querySelector('.temp-high')
+    intialConversionPlacement(frame, tempDay)
+    intialConversionPlacement(lowTempFrame, tempLow)
+    intialConversionPlacement(highTempFrame, tempHigh)
+  } else {
+    intialConversionPlacement(frame, temp)
+  }
 }
 
 const updateWind = (windSpeed, windDeg, locationOnPage) => {
@@ -513,7 +522,7 @@ const updateWindDirection = (windDegrees, locationOnPage) => {
 
 const updateUvi = (uviRating, locationOnPage) => {
   const uviFrame = locationOnPage.querySelector('.uvi')
-  uviFrame.innerHTML = ("UVI level - " + uviRating)
+  uviFrame.innerHTML = "UVI level - " + uviRating
 }
 
 const updatePrecipitation = (weatherData, locationOnPage) => {
@@ -586,11 +595,11 @@ const convertTimeHour = (rawTime) => {
   console.log(wholeDate)
 }
 
-const intialConversion = (kTemp) => {
+const intialConversionPlacement = (location, kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
   const display = document.getElementById('temperature_unit_display')
   display.innerHTML = IMPERIALDISPLAY
-  return fahrenheit.toFixed(1)
+  location.innerHTML = fahrenheit.toFixed(1)
 }
 
 const toImperialTempConversion = (mTemp) => {
