@@ -10,10 +10,10 @@
     <div id='user_input'></div>
     <div id='api_response'><span id='city_header'></span>
       <div id='intro'></div><button id="conversion_button">F/C</button>
-      <div id='current_weather_display' class='primary-focus days'> <span id='current_flag'>Current</span>
+      <div id='current_weather_display' class='primary-focus days'> <span id='current_label'>Current</span>
         <div class='condition'></div>
-        <div id='temperature_title'>Temperature
-          <div id='temperature' > <span class='temperature'></span><span id='temperature_unit_display' class='temperature-unit-display'> F </span> </div>
+        <div id='temperature_wrapper'>
+          <div id='temperature' > Temperature <span class='temperature'></span><span id='temperature_unit_display' class='temperature-unit-display'> F </span> </div>
         </div>
         <div class='humidity'></div>
         <div id='current_precipitation' > Rain Fall Over the Last Hour <span class='current-precipitation'></span><span class='precipitation-units'></span> </div>
@@ -32,9 +32,9 @@
     </div>
     <div id='today' class='today days'> Today
       <div class='condition'></div>
-      <div id='temperature_title'>Temperature 
-        <div id='temperature'><span class='temperature'></span><span class='temperature-unit-display'> F </span> </div>
-        <div id='temperature_low_high'><span class= 'temp-low'></span><span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
+      <div id='temperature_wrapper'>
+        <div id='temperature'>Temperature<span class='temperature'></span><span class='temperature-unit-display'> F </span> </div>
+        <div id='temperature_low_high'> Day's Low/High <span class= 'temp-low'></span> - <span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
       </div>
       <div class='humidity'></div>
       <div id='precipitation' > Rainfall <span class='precipitation'></span><span class='precipitation-units'></span> </div>
@@ -53,9 +53,9 @@
     <div class='week-report'>
       <div id='day_plus_two_weather_display' class='days'> Tomorrow
         <div class='condition'></div>
-        <div id='temperature_title'>Temperature 
-          <div id='temperature'><span class='temperature'></span></span><span class='temperature-unit-display'> F </span> </div>
-          <div id='temperature_low_high'><span class= 'temp-low'></span><span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
+        <div id='temperature_wrapper'>
+          <div id='temperature'>Temperature<span class='temperature'></span></span><span class='temperature-unit-display'> F </span> </div>
+          <div id='temperature_low_high'> Day's Low/High <span class= 'temp-low'></span> - <span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
         </div>
         <div class='humidity'></div>
         <div id='precipitation' > Rainfall <span class='precipitation'></span><span class='precipitation-units'></span> </div>
@@ -73,9 +73,9 @@
       </div>
       <div id='day_plus_three_weather_display' class='days'> DAY TWO
         <div class='condition'></div>
-        <div id='temperature_title'>Temperature 
-          <div id='temperature'><span class='temperature'></span><span class='temperature-unit-display'> F </span> </div>
-          <div id='temperature_low_high'><span class= 'temp-low'></span><span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
+        <div id='temperature_wrapper'>
+          <div id='temperature'>Temperature<span class='temperature'></span><span class='temperature-unit-display'> F </span> </div>
+          <div id='temperature_low_high'> Day's Low/High <span class= 'temp-low'></span> - <span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
         </div>
         <div class='humidity'></div>
         <div id='precipitation' > Rainfall <span class='precipitation'></span><span class='precipitation-units'></span> </div>
@@ -93,9 +93,9 @@
       </div>
       <div id='day_plus_four_weather_display' class='days'> DAY THREE
         <div class='condition'></div>
-        <div id='temperature_title'>Temperature
-          <div id='temperature'><span class='temperature'></span><span class='temperature-unit-display'>F</span></div>
-          <div id='temperature_low_high'><span class= 'temp-low'></span><span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
+        <div id='temperature_wrapper'>
+          <div id='temperature'>Temperature<span class='temperature'></span><span class='temperature-unit-display'>F</span></div>
+          <div id='temperature_low_high'> Low/High <span class= 'temp-low'></span> - <span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
         </div>
         <div class='humidity'></div>
         <div id='precipitation' >Rainfall<span class='precipitation'></span><span class='precipitation-units'></span> </div>
@@ -113,9 +113,9 @@
       </div>
       <div id='day_plus_five_weather_display' class='days'> DAY FOUR
         <div class='condition'></div>
-        <div id='temperature_title'>Temperature
-          <div id='temperature'><span class='temperature'></span><span class='temperature-unit-display'>F</span> </div>
-          <div id='temperature_low_high'><span class= 'temp-low'></span><span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
+        <div id='temperature_wrapper'>
+          <div id='temperature'> Temperature <span class='temperature'></span><span class='temperature-unit-display'>F</span> </div>
+          <div id='temperature_low_high'> Low/High <span class= 'temp-low'></span> - <span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
         </div>
         <div class='humidity'></div>
         <div id='precipitation' >Rainfall<span class='precipitation'></span><span class='precipitation-units'></span> </div>
@@ -133,9 +133,9 @@
       </div>
       <div id='day_plus_six_weather_display' class='days'>DAY FIVE
         <div class='condition'></div>
-        <div id='temperature_title'>Temperature
-          <div id='temperature'><span class='temperature'></span><span class='temperature-unit-display'>F</span> </div>
-          <div id='temperature_low_high'><span class= 'temp-low'></span><span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
+        <div id='temperature_wrapper'>
+          <div id='temperature'>Temperature<span class='temperature'></span><span class='temperature-unit-display'>F</span> </div>
+          <div id='temperature_low_high'> Low/High <span class= 'temp-low'></span> - <span class= 'temp-high'></span><span class='temperature-unit-display'> F </span></div>
         </div>
         <div class='humidity'></div>
         <div id='precipitation' >Rainfall<span class='precipitation'></span><span class='precipitation-units'></span> </div>

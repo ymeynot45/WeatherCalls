@@ -21,26 +21,29 @@
   font-weight: normal;
 }
 
-.alert-event{
+.alert-event {
   background-color: red;
   color: white;
 }
 
-#temperature_title{
-  display: flex;
-  flex-direction: row;
+#temperature_wrapper, #temperature_low_high {
+  grid-row-start: auto;
   
 }
 
-.temperature, .precipitation, .current-precipitation{
+.temperature, .precipitation, .current-precipitation {
   margin: 0 10px 0;
 }
 
-.sunrise, .sunset, .wind-speed, .wind-direction {
+.sunrise, .sunset, .wind-speed, .wind-direction .temp-low {
   margin-left: 10px;
 }
 
-#current_flag {
+.temp-high {
+  margin-left: 5px;
+}
+
+#current_label {
   margin: 0px 10px 0px;
 }
 
