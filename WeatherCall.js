@@ -389,7 +389,7 @@ const IMPERIALDISPLAY = "F"
 const makeAPICall = async function(city, stateCode, country, APIKEY){
   const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
   const locationData = await findLocationData(completeCityUrl)
-  const weatherData = await findWeatherData(insertLatLonUrl(locationData[0].lat , locationData[0].lon , APIKEY)) //Currently hard coded to work with only the first city from the api call.
+  findWeatherData(insertLatLonUrl(locationData[0].lat , locationData[0].lon , APIKEY)) //Currently hard coded to work with only the first city from the api call.
   clearForm()
 }
 
@@ -741,8 +741,7 @@ const handleSubmit = (e) => {
   const city = e.target[0].value
   const stateCode = e.target[1].value
   const country = e.target[2].value
-  // Every thing else goes here
-  const test = document.getElementById('city_header').innerHTML = city
+  document.getElementById('city_header').innerHTML = city
   makeAPICall(city, stateCode, country, APIKEY)
 }
 
