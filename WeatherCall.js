@@ -1,5 +1,4 @@
 // Next steps
-// add morn and night, min max to the daily's 
 // build hourly function
 // setup background images based on the current weather
 // resort HTML to put most important on top (affordances)
@@ -486,37 +485,37 @@ const updateWindDirection = (windDegrees, locationOnPage) => {
   const frame = locationOnPage.querySelector('.wind-direction')
   let direction = ''
   if (windDegrees > 348 || windDegrees < 12){
-   direction = "North"
+   direction = " North"
   }else if (windDegrees > 11 && windDegrees < 34){
-    direction = "North-Northeast"
+    direction = " North-Northeast"
   }else if (windDegrees > 33 && windDegrees < 57){
-    direction = "Northeast"
+    direction = " Northeast"
   }else if (windDegrees > 56 && windDegrees < 79){
-    direction = "East-Northeast"
+    direction = " East-Northeast"
   }else if (windDegrees > 78 && windDegrees < 102){
-    direction = "East"
+    direction = " East"
   }else if (windDegrees > 101 && windDegrees < 124){
-    direction = "East-Southeast"
+    direction = " East-Southeast"
   }else if (windDegrees > 123 && windDegrees < 147){
-    direction = "Southeast"
+    direction = " Southeast"
   }else if (windDegrees > 146 && windDegrees < 169){
-    direction = "South-Southeast"
+    direction = " South-Southeast"
   }else if (windDegrees > 168 && windDegrees < 192){
-    direction = "South"
+    direction = " South"
   }else if (windDegrees > 191 && windDegrees < 214){
-    direction = "South-Southwest"
+    direction = " South-Southwest"
   }else if (windDegrees > 213 && windDegrees < 237){
-    direction = "Southwest"
+    direction = " Southwest"
   }else if (windDegrees > 236 && windDegrees < 259){
-    direction = "West-Southwest"
+    direction = " West-Southwest"
   }else if (windDegrees > 258 && windDegrees < 282){
-    direction = "West"
+    direction = " West"
   }else if (windDegrees > 281 && windDegrees < 304){
-    direction = "West-Northwest"
+    direction = " West-Northwest"
   }else if (windDegrees > 303 && windDegrees < 327){
-    direction = "Northwest"
+    direction = " Northwest"
   }else if (windDegrees > 326 && windDegrees < 349){
-    direction = "North-Northwest"}
+    direction = " North-Northwest"}
   frame.innerHTML = direction
 }
 
