@@ -634,6 +634,8 @@ const converstionHandler = () => {
 const unitConversionSet = (systemFrame) => {
   const globalTempUnitFrame = document.querySelectorAll('.temperature-unit-display')
   const globalTempNumbers = document.querySelectorAll('.temperature')
+  const globalHighTempNumbers = document.querySelectorAll('.temp-high')
+  const globalLowTempNumbers = document.querySelectorAll('.temp-low')
   if(systemFrame.innerHTML === METRICDISPLAY) {
     windConversionSet(systemFrame.innerHTML)
     Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = IMPERIALDISPLAY})
@@ -641,10 +643,26 @@ const unitConversionSet = (systemFrame) => {
       currentTemp = toImperialTempConversion(temperatureNumberSpan.innerHTML)
       temperatureNumberSpan.innerHTML = currentTemp.toFixed(1)
     })
+    Array.prototype.forEach.call(globalHighTempNumbers, function(temperatureNumberSpan) {
+      currentTemp = toImperialTempConversion(temperatureNumberSpan.innerHTML)
+      temperatureNumberSpan.innerHTML = currentTemp.toFixed(1)
+    })
+    Array.prototype.forEach.call(globalLowTempNumbers, function(temperatureNumberSpan) {
+      currentTemp = toImperialTempConversion(temperatureNumberSpan.innerHTML)
+      temperatureNumberSpan.innerHTML = currentTemp.toFixed(1)
+    })
   }else if (systemFrame.innerHTML === IMPERIALDISPLAY){
     windConversionSet(systemFrame.innerHTML)
     Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = METRICDISPLAY})
     Array.prototype.forEach.call(globalTempNumbers, function(temperatureNumberSpan) {
+      currentTemp = toMetricTempConversion(temperatureNumberSpan.innerHTML)
+      temperatureNumberSpan.innerHTML = currentTemp.toFixed(1)
+    })
+    Array.prototype.forEach.call(globalHighTempNumbers, function(temperatureNumberSpan) {
+      currentTemp = toMetricTempConversion(temperatureNumberSpan.innerHTML)
+      temperatureNumberSpan.innerHTML = currentTemp.toFixed(1)
+    })
+    Array.prototype.forEach.call(globalLowTempNumbers, function(temperatureNumberSpan) {
       currentTemp = toMetricTempConversion(temperatureNumberSpan.innerHTML)
       temperatureNumberSpan.innerHTML = currentTemp.toFixed(1)
     })
