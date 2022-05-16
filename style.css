@@ -13,6 +13,11 @@
   flex-grow: 1;
 }
 
+#today {
+  border: 2px solid black;
+  width: 20%
+}
+
 .days {
   font-weight: bold;
 }

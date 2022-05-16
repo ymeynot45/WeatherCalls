@@ -1,5 +1,6 @@
 // Next steps
 // build hourly function
+// add error message when they put a false city into the form.
 // setup background images based on the current weather
 // resort HTML to put most important on top (affordances)
 // css this thing to looking decent, include expansions for each of the day divs start with min info
@@ -421,6 +422,7 @@ const findWeatherData = async function (completeWeatherUrl) {
     updatePage(weatherData.daily[3], DISPLAYDAYPLUSTHREE)
     updatePage(weatherData.daily[4], DISPLAYDAYPLUSFOUR)
     updatePage(weatherData.daily[5], DISPLAYDAYPLUSFIVE)
+    updatePage(weatherData)
   } catch (error) {
     alert(error)
   }
@@ -444,15 +446,18 @@ const updateAlerts = (alertData, alertFrame) => {
 }
 
 const updatePage = (weatherData, locationOnPage) => {
-  updateTemperature(weatherData.temp, locationOnPage)
-  updateWind(weatherData.wind_speed, weatherData.wind_deg, locationOnPage)
-  updateSunriseSunset(weatherData.sunrise, weatherData.sunset, locationOnPage)
-  updateHumidity(weatherData.humidity, locationOnPage)
-  updateCondition(weatherData.weather[0].description, locationOnPage)
-  updatePrecipitation(weatherData, locationOnPage)
-  updateDay(weatherData.dt, locationOnPage)
-  updateUvi(weatherData.uvi, locationOnPage)
-  // updateHour(weatherData.dt, locationOnPage)  //implement when I create the hourly display
+  if (weatherData.hourly != undefined) {
+    updateHour(weatherData.hourly)
+  } else {
+    updateTemperature(weatherData.temp, locationOnPage)
+    updateWind(weatherData.wind_speed, weatherData.wind_deg, locationOnPage)
+    updateSunriseSunset(weatherData.sunrise, weatherData.sunset, locationOnPage)
+    updateHumidity(weatherData.humidity, locationOnPage)
+    updateCondition(weatherData.weather[0].description, locationOnPage)
+    updatePrecipitation(weatherData, locationOnPage)
+    updateDay(weatherData.dt, locationOnPage)
+    updateUvi(weatherData.uvi, locationOnPage)
+  }
 }
 
 const updateTemperature = (temp, locationOnPage) => {
@@ -559,10 +564,16 @@ const updateDay = (day, locationOnPage) => {
   locationOnPage.firstChild.data = convertTimeDay(day)
 }
 
-// const updateHour = (hour, locationOnPage) => {
-//   const frame = locationOnPage.querySelector('')
-//   frame.innerHTML = convertTimeHourMin(hour)
-// }
+const updateHour = (hourdata) => {
+  const frame = document.getElementById('hourly_report')
+  console.log(hourdata)
+  hourdata.forEach(function(hour) {
+    let hourBlock = document.createElement('li')
+    hourBlock.innerHTML = hour.temp
+    frame.appendChild(hourBlock)
+  }) 
+  // frame.innerHTML = convertTimeHourMin(hourdata)
+}
 
 const updateHumidity = (humidity, locationOnPage) => {
   const frame = locationOnPage.querySelector('.humidity')
