@@ -31,16 +31,16 @@
   color: white;
 }
 
-#temperature_wrapper, #temperature_low_high {
+.temperature_wrapper, .temperature_low_high {
   grid-row-start: auto;
   
 }
 
-.temperature, .precipitation, .current-precipitation {
+.temperature-value, .precipitation-value, .current-precipitation {
   margin: 0 10px 0;
 }
 
-.sunrise, .sunset, .wind-speed, .wind-direction .temp-low {
+.sunrise, .sunset, .wind-speed-value, .wind-direction .temp-low {
   margin-left: 10px;
 }
 

@@ -461,13 +461,13 @@ const updatePage = (weatherData, locationOnPage) => {
 }
 
 const updateTemperature = (temp, locationOnPage) => {
-  const frame = locationOnPage.querySelector('.temperature')
+  const frame = locationOnPage.querySelector('.temperature-value')
   if(isNaN(temp)){
     const tempDay = temp.day
     const tempLow = temp.min
     const tempHigh = temp.max
-    const lowTempFrame = locationOnPage.querySelector('.temp-low')
-    const highTempFrame = locationOnPage.querySelector('.temp-high')
+    const lowTempFrame = locationOnPage.querySelector('.temp-low-value')
+    const highTempFrame = locationOnPage.querySelector('.temp-high-value')
     intialConversionPlacement(frame, tempDay)
     intialConversionPlacement(lowTempFrame, tempLow)
     intialConversionPlacement(highTempFrame, tempHigh)
@@ -530,7 +530,7 @@ const updateUvi = (uviRating, locationOnPage) => {
 }
 
 const updatePrecipitation = (weatherData, locationOnPage) => {
-  const precipitationNumberFrame = locationOnPage.querySelector('.precipitation, .current-precipitation')
+  const precipitationNumberFrame = locationOnPage.querySelector('.precipitation-value, .current-precipitation')
   const precipitationUnitFrame = locationOnPage.querySelector('.precipitation-units')
   if (typeof weatherData.rain?.['1h'] === 'number') {
     const precipitation = weatherData.rain['1h']
@@ -551,12 +551,12 @@ const updateSunriseSunset = (sunrise, sunset, locationOnPage) => {
 }
 
 const updateSunrise = (sunrise, locationOnPage) => {
-  const frame = locationOnPage.querySelector('.sunrise')
+  const frame = locationOnPage.querySelector('.sunrise-value')
   frame.innerHTML = convertTimeHourMin(sunrise)
 }
 
 const updateSunset = (sunset, locationOnPage) => {
-  const frame = locationOnPage.querySelector('.sunset')
+  const frame = locationOnPage.querySelector('.sunset-value')
   frame.innerHTML = convertTimeHourMin(sunset)
 }
 
@@ -602,12 +602,11 @@ const convertTimeDay = (rawTime) => {
 const convertTimeHour = (rawTime) => {
   const rawDate = new Date(rawTime * 1000)
   const wholeDate = rawDate.toString()
-  console.log(wholeDate)
 }
 
 const intialConversionPlacement = (location, kTemp) => {
   const fahrenheit = ((kTemp - 273.15) * (9/5) + 32)
-  const display = document.getElementById('temperature_unit_display')
+  const display = document.querySelector('.temperature-unit-display')
   display.innerHTML = IMPERIALDISPLAY
   location.innerHTML = fahrenheit.toFixed(1)
 }
@@ -643,9 +642,9 @@ const converstionHandler = () => {
 
 const unitConversionSet = (systemFrame) => {
   const globalTempUnitFrame = document.querySelectorAll('.temperature-unit-display')
-  const globalTempNumbers = document.querySelectorAll('.temperature')
-  const globalHighTempNumbers = document.querySelectorAll('.temp-high')
-  const globalLowTempNumbers = document.querySelectorAll('.temp-low')
+  const globalTempNumbers = document.querySelectorAll('.temperature-value')
+  const globalHighTempNumbers = document.querySelectorAll('.temp-high-value')
+  const globalLowTempNumbers = document.querySelectorAll('.temp-low-value')
   if(systemFrame.innerHTML === METRICDISPLAY) {
     windConversionSet(systemFrame.innerHTML)
     Array.prototype.forEach.call(globalTempUnitFrame, function(span) {span.innerHTML = IMPERIALDISPLAY})
