@@ -569,7 +569,7 @@ const updateHour = (hourdata) => {
   console.log(hourdata)
   hourdata.forEach(function(hour) {
     let hourBlock = document.createElement('li')
-    hourBlock.innerHTML = hour.temp
+    intialConversionPlacement(hourBlock, hour.temp)
     frame.appendChild(hourBlock)
   }) 
   // frame.innerHTML = convertTimeHourMin(hourdata)
