@@ -569,12 +569,17 @@ const updateHour = (hourdata) => {
   console.log(hourdata)
   hourdata.forEach(function(hour) {
     const hourBlock = document.createElement('li')
-    hourBlock.classList.add('hour-wrapper')
     const hourTemp = document.createElement('span')
+    const tempUnitDisplay = document.createElement('span')
+    hourBlock.classList.add('hour-wrapper')
     hourTemp.classList.add('hour-temp')
+    tempUnitDisplay.innerText = "F"
+    tempUnitDisplay.classList.add('temperature-unit-display')
     intialConversionPlacement(hourTemp, hour.temp)
-    frame.appendChild(hourBlock)
     hourBlock.appendChild(hourTemp)
+    hourBlock.appendChild(tempUnitDisplay)
+    frame.appendChild(hourBlock)
+    
   }) 
   // frame.innerHTML = convertTimeHourMin(hourdata)
 }
