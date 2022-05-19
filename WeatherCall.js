@@ -571,13 +571,17 @@ const updateHour = (hourdata) => {
     const hourBlock = document.createElement('li')
     const hourTemp = document.createElement('span')
     const tempUnitDisplay = document.createElement('span')
+    const hourWeatherDescription = document.createElement('div')
     hourBlock.classList.add('hour-wrapper')
     hourTemp.classList.add('hour-temp')
     tempUnitDisplay.innerText = "F"
     tempUnitDisplay.classList.add('temperature-unit-display')
+    hourWeatherDescription.classList.add('hour-description')
+    hourWeatherDescription.innerText = hour.weather[0].description
     intialConversionPlacement(hourTemp, hour.temp)
     hourBlock.appendChild(hourTemp)
     hourBlock.appendChild(tempUnitDisplay)
+    hourBlock.appendChild(hourWeatherDescription)
     frame.appendChild(hourBlock)
     
   }) 
