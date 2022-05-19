@@ -568,9 +568,13 @@ const updateHour = (hourdata) => {
   const frame = document.getElementById('hourly_report')
   console.log(hourdata)
   hourdata.forEach(function(hour) {
-    let hourBlock = document.createElement('li')
-    intialConversionPlacement(hourBlock, hour.temp)
+    const hourBlock = document.createElement('li')
+    hourBlock.classList.add('hour-wrapper')
+    const hourTemp = document.createElement('span')
+    hourTemp.classList.add('hour-temp')
+    intialConversionPlacement(hourTemp, hour.temp)
     frame.appendChild(hourBlock)
+    hourBlock.appendChild(hourTemp)
   }) 
   // frame.innerHTML = convertTimeHourMin(hourdata)
 }

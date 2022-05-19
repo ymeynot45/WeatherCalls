@@ -48,6 +48,25 @@
   margin-left: 5px;
 }
 
+#hourly_report {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  max-height: 5em;
+}
+
+.hour-wrapper {
+  display: block;
+  border: 1px, solid, black;
+  background-color: blue;
+  max-width: 3em;
+  margin-right: 1em;
+}
+
+.hour-temp {
+  background-color: red;
+}
+
 #current_label {
   margin: 0px 10px 0px;
 }
