@@ -383,9 +383,10 @@ const DISPLAYDAYPLUSFIVE = document.getElementById('day_plus_six_weather_display
 const DISPLAYALERTS = document.getElementById('alerts')
 const METRICDISPLAY = "C"
 const IMPERIALDISPLAY = "F"
+const CITY = 'Chicago'  // for css testing purposes don't forget to fix makeAPICall as well.
 
-const makeAPICall = async function(city = 'chicago', stateCode, country, APIKEY){
-  const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
+const makeAPICall = async function(city, stateCode, country, APIKEY){
+  const completeCityUrl = buildCityLocationUrl(CITY, stateCode, country, APIKEY)
   const locationData = await findLocationData(completeCityUrl)
   findWeatherData(insertLatLonUrl(locationData[0].lat , locationData[0].lon , APIKEY)) //Currently hard coded to work with only the first city from the api call.
   clearForm()
@@ -570,17 +571,18 @@ const updateDay = (day, locationOnPage) => {
 }
 
 const updateHour = (hourdata) => {
-  const frame = document.getElementById('hourly_report')
+  const frame = document.getElementById('hourly_report_ol')
   console.log(hourdata)
   hourdata.forEach(function(hour) {
-    const hourBlock = document.createElement('li')
+    const hourBlock = document.createElement('div')
     const hourTemp = document.createElement('span')
     const tempUnitDisplay = document.createElement('span')
     const hourWeatherDescription = document.createElement('div')
     const hourTimeDisplay = document.createElement('div')
     const hourImageDiv = document.createElement('div')
 
-    hourBlock.classList.add('hour-wrapper')
+    hourBlock.classList.add('hour-wrapper-li')
+
     hourWeatherDescription.classList.add('hour-description')
     hourWeatherDescription.innerText = hour.weather[0].description
 

@@ -48,23 +48,33 @@
   margin-left: 5px;
 }
 
-#hourly_report {
+#hourly_report_ol {
   display: flex;
   flex-direction: row;
   overflow: scroll;
-  max-height: 5em;
+  max-height: auto;
+  list-style-position:inside;
+  margin: 0;
+  padding: 0;
 }
 
-.hour-wrapper {
+.hour-wrapper-li {
   display: block;
-  border: 1px, solid, black;
-  background-color: blue;
-  max-width: 3em;
-  margin-right: 1em;
+  list-style-position:inside;
+  border: 2px solid black;
+  background: blue;
+  min-width: 55px;  
+  height: 4em;
+  margin: 0;
+  padding: 0.5em;
 }
 
+.hour-time-display {
+  font-weight: bold;
+  align-content: center;
+}
 .hour-temp {
-  background-color: red;
+  /* background-color: red; */
 }
 
 #current_label {
