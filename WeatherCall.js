@@ -572,16 +572,20 @@ const updateHour = (hourdata) => {
     const hourTemp = document.createElement('span')
     const tempUnitDisplay = document.createElement('span')
     const hourWeatherDescription = document.createElement('div')
+    const hourTimeDisplay = document.createElement('div')
     hourBlock.classList.add('hour-wrapper')
+    hourWeatherDescription.classList.add('hour-description')
+    hourWeatherDescription.innerText = hour.weather[0].description
     hourTemp.classList.add('hour-temp')
     tempUnitDisplay.innerText = "F"
     tempUnitDisplay.classList.add('temperature-unit-display')
-    hourWeatherDescription.classList.add('hour-description')
-    hourWeatherDescription.innerText = hour.weather[0].description
+    hourTimeDisplay.classList.add('hour-time-display')
+    hourTimeDisplay.innerText = convertTimeHour(hour.dt)
     intialConversionPlacement(hourTemp, hour.temp)
+    hourBlock.appendChild(hourTimeDisplay)
+    hourBlock.appendChild(hourWeatherDescription)
     hourBlock.appendChild(hourTemp)
     hourBlock.appendChild(tempUnitDisplay)
-    hourBlock.appendChild(hourWeatherDescription)
     frame.appendChild(hourBlock)
     
   }) 
@@ -615,6 +619,7 @@ const convertTimeDay = (rawTime) => {
 const convertTimeHour = (rawTime) => {
   const rawDate = new Date(rawTime * 1000)
   const wholeDate = rawDate.toString()
+  return wholeDate.substr(15, 6)
 }
 
 const intialConversionPlacement = (location, kTemp) => {
