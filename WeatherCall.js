@@ -1,8 +1,5 @@
 // Next steps
-// build hourly function
-// add error message when they put a false city into the form.
 // setup background images based on the current weather
-// resort HTML to put most important on top (affordances)
 // css this thing to looking decent, include expansions for each of the day divs start with min info
 // add cookies
 // css for multiple device sizes
@@ -387,7 +384,7 @@ const DISPLAYALERTS = document.getElementById('alerts')
 const METRICDISPLAY = "C"
 const IMPERIALDISPLAY = "F"
 
-const makeAPICall = async function(city, stateCode, country, APIKEY){
+const makeAPICall = async function(city = 'chicago', stateCode, country, APIKEY){
   const completeCityUrl = buildCityLocationUrl(city, stateCode, country, APIKEY)
   const locationData = await findLocationData(completeCityUrl)
   findWeatherData(insertLatLonUrl(locationData[0].lat , locationData[0].lon , APIKEY)) //Currently hard coded to work with only the first city from the api call.
