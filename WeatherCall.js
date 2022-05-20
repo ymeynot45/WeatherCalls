@@ -581,23 +581,29 @@ const updateHour = (hourdata) => {
     const tempUnitDisplay = document.createElement('span')
     const hourWeatherDescription = document.createElement('div')
     const hourTimeDisplay = document.createElement('div')
+    const hourImageDiv = document.createElement('div')
+
     hourBlock.classList.add('hour-wrapper')
     hourWeatherDescription.classList.add('hour-description')
     hourWeatherDescription.innerText = hour.weather[0].description
+
     hourTemp.classList.add('hour-temp')
     tempUnitDisplay.innerText = "F"
     tempUnitDisplay.classList.add('temperature-unit-display')
+
     hourTimeDisplay.classList.add('hour-time-display')
     hourTimeDisplay.innerText = convertTimeHour(hour.dt)
     intialConversionPlacement(hourTemp, hour.temp)
+
+
     hourBlock.appendChild(hourTimeDisplay)
+    hourBlock.appendChild(hourImageDiv)
     hourBlock.appendChild(hourWeatherDescription)
     hourBlock.appendChild(hourTemp)
     hourBlock.appendChild(tempUnitDisplay)
     frame.appendChild(hourBlock)
     
   }) 
-  // frame.innerHTML = convertTimeHourMin(hourdata)
 }
 
 const updateHumidity = (humidity, locationOnPage) => {
