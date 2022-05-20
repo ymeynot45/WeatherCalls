@@ -71,6 +71,9 @@
   margin: 0px 10px 0px;
 }
 
+.hidden {
+  display: none;
+}
 #weather_display {
 
 }

@@ -423,9 +423,17 @@ const findWeatherData = async function (completeWeatherUrl) {
     updatePage(weatherData.daily[4], DISPLAYDAYPLUSFOUR)
     updatePage(weatherData.daily[5], DISPLAYDAYPLUSFIVE)
     updatePage(weatherData)
+    displayHidden()
   } catch (error) {
     alert(error)
   }
+}
+
+const displayHidden = () => {
+  hiddenElements = document.querySelectorAll('.hidden')
+  hiddenElements.forEach(element =>
+    element.classList.remove('hidden')
+  )
 }
 
 const clearForm = () => {
