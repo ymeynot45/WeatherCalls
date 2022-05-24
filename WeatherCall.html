@@ -10,7 +10,7 @@
     <div id='user_input'></div>
     <div id='api_response'><span id='city_header'></span>
       <div id='intro'></div><button id="conversion_button">F/C</button>
-      <div id='current_weather_display' class='primary-focus days hidden'> <span id='current_label'>Current</span>
+      <div id='current_weather_display' class='primary-focus hidden'> <span id='current_label'>Current</span>
         <div class='condition'></div>
         <div class='temperature-wrapper'>
           <div class='temperature' > Temperature <span class='temperature-value'></span><span id='temperature_unit_display' class='temperature-unit-display'> F </span> </div>
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div id='today' class='today days hidden'> Today
+    <div id='today' class='today days-hidden hidden'> Today
       <div class='condition'></div>
       <div class='temperature-wrapper'>
         <div class='temperature'>Temperature<span class='temperature-value'></span></span><span id='temperature_unit_display'> F </span> </div>
@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class='week-report hidden'>
-      <div id='day_plus_two_weather_display' class='days'> Tomorrow
+      <div id='day_plus_two_weather_display' class='days-hidden'> Tomorrow
         <div class='condition'></div>
         <div class='temperature-wrapper'>
           <div class='temperature'>Temperature<span class='temperature-value'></span></span><span class='temperature-unit-display'> F </span> </div>
@@ -71,7 +71,7 @@
           <div class='sunset-title' >Sunset <span class='sunset-value'> </span> </div>
         </div>
       </div>
-      <div id='day_plus_three_weather_display' class='days'> DAY TWO
+      <div id='day_plus_three_weather_display' class='days-hidden'> DAY TWO
         <div class='condition'></div>
         <div class='temperature-wrapper'>
           <div class='temperature'>Temperature<span class='temperature-value'></span><span class='temperature-unit-display'> F </span> </div>
@@ -91,7 +91,7 @@
           <div class='sunset-title' >Sunset <span class='sunset-value'> </span> </div>
         </div>
       </div>
-      <div id='day_plus_four_weather_display' class='days'> DAY THREE
+      <div id='day_plus_four_weather_display' class='days-hidden'> DAY THREE
         <div class='condition'></div>
         <div class='temperature-wrapper'>
           <div class='temperature'>Temperature<span class='temperature-value'></span><span class='temperature-unit-display'>F</span></div>
@@ -111,7 +111,7 @@
           <div class='sunset-title' >Sunset <span class='sunset-value'> </span> </div>
         </div>
       </div>
-      <div id='day_plus_five_weather_display' class='days'> DAY FOUR
+      <div id='day_plus_five_weather_display' class='days-hidden'> DAY FOUR
         <div class='condition'></div>
         <div class='temperature-wrapper'>
           <div class='temperature'> Temperature <span class='temperature-value'></span><span class='temperature-unit-display'>F</span> </div>
@@ -131,7 +131,7 @@
           <div class='sunset-title' >Sunset <span class='sunset-value'> </span> </div>
         </div>
       </div>
-      <div id='day_plus_six_weather_display' class='days'>DAY FIVE
+      <div id='day_plus_six_weather_display' class='days-hidden'>DAY FIVE
         <div class='condition'></div>
         <div class='temperature-wrapper'>
           <div class='temperature'>Temperature<span class='temperature-value'></span><span class='temperature-unit-display'>F</span> </div>
@@ -156,7 +156,6 @@
       <ol id='hourly_report_ol'>
       </ol>
     </div>
-    <div>spacer</div>
     <script src="WeatherCall.js"></script>
   </body>
 </html>

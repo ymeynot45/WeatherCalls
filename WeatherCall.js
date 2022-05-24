@@ -1,4 +1,5 @@
 // Next steps
+// add some type of indicator for the drop downs on the day blocks
 // setup background images based on the current weather
 // css this thing to looking decent, include expansions for each of the day divs start with min info
 // add cookies
@@ -463,6 +464,7 @@ const updatePage = (weatherData, locationOnPage) => {
     updatePrecipitation(weatherData, locationOnPage)
     updateDay(weatherData.dt, locationOnPage)
     updateUvi(weatherData.uvi, locationOnPage)
+    addClickFunction(locationOnPage)// add event listenter to toggle overflow hidden.
   }
 }
 
@@ -572,7 +574,6 @@ const updateDay = (day, locationOnPage) => {
 
 const updateHour = (hourdata) => {
   const frame = document.getElementById('hourly_report_ol')
-  console.log(hourdata)
   hourdata.forEach(function(hour) {
     const hourBlock = document.createElement('div')
     const hourTemp = document.createElement('span')
@@ -615,21 +616,29 @@ const updateCondition = (condition, locationOnPage) => {
   frame.innerHTML = condition
 }
 
-const convertTimeHourMin = (rawTime) => {
+const addClickFunction = (location) => {
+  
+  location.addEventListener('click', event => {
+    if(location.classList.contains("days-shown")) {location.classList.remove('days-shown')}
+    else{location.classList.add('days-shown')}
+  })
+}
+
+const convertTimeHourMin = (rawTime) => {  //Give 24H XX:XX for sunrise/set
   const rawDate = new Date(rawTime * 1000)
   const wholeDate = rawDate.toString()
   time = wholeDate.slice(-41, -36)
   return time
 }
 
-const convertTimeDay = (rawTime) => {
+const convertTimeDay = (rawTime) => {  //Gives Day Month Date
   const rawDate = new Date(rawTime * 1000)
   const wholeDate = rawDate.toString()
   time = wholeDate.slice(0, 10)
   return time
 }
 
-const convertTimeHour = (rawTime) => {
+const convertTimeHour = (rawTime) => {  //Give 24h clock XX:00 
   const rawDate = new Date(rawTime * 1000)
   const wholeDate = rawDate.toString()
   return wholeDate.substr(15, 6)
@@ -792,6 +801,3 @@ const addElements = () => {
 }
 
 window.addEventListener('load', addElements)
-
-// console.log(buildUrl('Chicago', APIKEY))
-// console.log(findWeatherData(buildUrl(cityName, APIKEY)))
