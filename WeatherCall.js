@@ -387,9 +387,9 @@ const IMPERIALDISPLAY = "F"
 const CITY = 'Chicago'  // for css testing purposes don't forget to fix makeAPICall as well.
 
 const makeAPICall = async function(city, stateCode, country, APIKEY){
-  const completeCityUrl = buildCityLocationUrl(CITY, stateCode, country, APIKEY)
+  const completeCityUrl = buildCityLocationUrl(CITY, stateCode, country, APIKEY) //Currently hard coded to work with only the first city from the api call.
   const locationData = await findLocationData(completeCityUrl)
-  findWeatherData(insertLatLonUrl(locationData[0].lat , locationData[0].lon , APIKEY)) //Currently hard coded to work with only the first city from the api call.
+  findWeatherData(insertLatLonUrl(locationData[0].lat , locationData[0].lon , APIKEY))
   clearForm()
 }
 
@@ -412,7 +412,7 @@ const findWeatherData = async function (completeWeatherUrl) {
   try {
     const response = await fetch(completeWeatherUrl)
     const weatherData = await response.json()
-    console.log("weather data  ", weatherData) // Delete when done
+    console.log("weather data", weatherData) // Delete when done
     if (weatherData.alerts) {updateAlerts(weatherData.alerts, DISPLAYALERTS)}
     updatePage(weatherData.current, DISPLAYCURRENT) // run multiple times with different weather. based on the location it is going to on the page!
     updatePage(weatherData.daily[0], DISPLAYTODAY)
