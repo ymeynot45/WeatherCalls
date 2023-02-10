@@ -5,7 +5,7 @@
 // add cookies
 // css for multiple device sizes
 
-
+// "use strict";  Need to fix this
 
 const APIKEY = '7e27e0dc168db6f6048cc43a08a5543f'
 const buildCityLocationUrl = (cityName, stateCode, country, APIKEY) => {
@@ -583,6 +583,7 @@ const updateHour = (hourdata) => {
     const hourImageDiv = document.createElement('div')
 
     hourBlock.classList.add('hour-wrapper-li')
+    hourBlock.classList.add('data-frame')
 
     hourWeatherDescription.classList.add('hour-description')
     hourWeatherDescription.innerText = hour.weather[0].description

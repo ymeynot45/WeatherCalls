@@ -17,6 +17,10 @@
   width: 20%
 }
 
+.data-frame {
+  border-radius: 1rem;
+}
+
 .week-report {
   display: flex;
   flex-direction: row;
@@ -31,6 +35,7 @@
   font-weight: bold;
   height: 7em;
   overflow: hidden;
+  padding-left: 0.5rem;
 }
 
 .days-hidden, .days-shown > * {
@@ -64,6 +69,7 @@
   margin: 0;
   margin-bottom: 1em;
   padding-bottom: 0;
+  padding-left: 0;
 }
 
 .hour-wrapper-li {
@@ -73,7 +79,7 @@
   background: blue;
   min-width: 55px;  
   height: 4em;
-  margin: 0;
+  margin: 0.05em;
   padding: 0.5em;
   padding-bottom: 1em;
 }
